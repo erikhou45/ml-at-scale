@@ -33,9 +33,11 @@ for line in sys.stdin:
 
 ############ YOUR CODE HERE #########
 
+    for word in words:
+        counts[word] = counts[word] + 1
 
-
-
+for key in counts:
+    print('%s\t%d' %(key, counts[key]))
 
 
 
