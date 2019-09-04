@@ -1,0 +1,3675 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{hw2\_workbook}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{HW 2 - Naive Bayes in Hadoop
+MR}\label{hw-2---naive-bayes-in-hadoop-mr}
+
+\textbf{\texttt{MIDS\ w261:\ Machine\ Learning\ at\ Scale\ \textbar{}\ UC\ Berkeley\ School\ of\ Information\ \textbar{}\ Fall\ 2018}}
+
+In the live sessions for week 2 and week 3 you got some practice
+designing and debugging Hadoop Streaming jobs. In this homework we'll
+use Hadoop MapReduce to implement your first parallelized machine
+learning algorithm: Naive Bayes. As you develop your implementation
+you'll test it on a small dataset that matches the 'Chinese Example' in
+the \emph{Manning, Raghavan and Shutze} reading for Week 2. For the main
+task in this assignment you'll be working with a small subset of the
+Enron Spam/Ham Corpus. By the end of this assignment you should be able
+to: * \textbf{... describe} the Naive Bayes algorithm including both
+training and inference. * \textbf{... perform} EDA on a corpus using
+Hadoop MR. * \textbf{... implement} parallelized Naive Bayes. *
+\textbf{... constrast} partial, unordered and total order sort and their
+implementations in Hadoop Streaming. * \textbf{... explain} how
+smoothing affects the bias and variance of a Multinomial Naive Bayes
+model.
+
+As always, your work will be graded both on the correctness of your
+output and on the clarity and design of your code. \textbf{Please refer
+to the \texttt{README} for homework submission instructions.}
+
+    \subsection{Notebook Setup}\label{notebook-setup}
+
+Before starting, run the following cells to confirm your setup.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} imports}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} global vars (paths) \PYZhy{} ADJUST AS NEEDED}
+        \PY{n}{JAR\PYZus{}FILE} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/usr/lib/hadoop\PYZhy{}mapreduce/hadoop\PYZhy{}streaming.jar}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{HDFS\PYZus{}DIR} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/user/root/HW2}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{HOME\PYZus{}DIR} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} FILL IN HERE eg. /media/notebooks/Assignments/HW2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{n}{HOME\PYZus{}DIR} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/media/notebooks/Assignments/HW2/master}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{HOME\PYZus{}DIR} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/media/notebooks/Instructors/Assignments/HW2/master}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} for Instructors only}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} save path for use in Hadoop jobs (\PYZhy{}cmdenv PATH=\PYZob{}PATH\PYZcb{})}
+         \PY{k+kn}{from} \PY{n+nn}{os} \PY{k}{import} \PY{n}{environ}
+         \PY{n}{PATH}  \PY{o}{=} \PY{n}{environ}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PATH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} data path}
+         \PY{n}{ENRON} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/enronemail\PYZus{}1h.txt}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \section{Question 1: Hadoop MapReduce Key
+Takeaways.}\label{question-1-hadoop-mapreduce-key-takeaways.}
+
+This assignment will be the only one in which you use Hadoop Streaming
+to implement a distributed algorithm. The key reason we continue to
+teach Hadoop streaming is because of the way it forces the programmer to
+think carefully about what is happening under the hood when you
+parallelize a calculation. This question will briefly highlight some of
+the most important concepts that you need to understand about Hadoop
+Streaming and MapReduce before we move on to Spark next week.
+
+\subsubsection{Q1 Tasks:}\label{q1-tasks}
+
+\begin{itemize}
+\item
+  \textbf{a) short response:} What "programming paradigm" is Hadoop
+  MapReduce based on? What are the main ideas of this programming
+  paradigm and how does MapReduce exemplify these ideas?
+\item
+  \textbf{b) short response:} What is the Hadoop Shuffle? When does it
+  happen? Why is it potentially costly? Describe one specific thing we
+  can we do to mitigate the cost associated with this stage of our
+  Hadoop Streaming jobs.
+\item
+  \textbf{c) short response:} In Hadoop Streaming why do the input and
+  output record format of a combiner script have to be the same?
+  {[}\textbf{\texttt{HINT}} \emph{what level of combining does the
+  framework guarantee? what is the relationship between the record
+  format your mapper emits and the format your reducer expects to
+  receive?}{]}
+\item
+  \textbf{d) short response:} To what extent can you control the level
+  of parallelization of your Hadoop Streaming jobs? Please be specific.
+\item
+  \textbf{e) short response:} What change in the kind of computing
+  resources available prompted the creation of parallel computation
+  frameworks like Hadoop?
+\end{itemize}
+
+    \subsubsection{Q1 Student Answers:}\label{q1-student-answers}
+
+\begin{quote}
+\textbf{a)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{b)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{d)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{e)} Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{SOLUTION}
+
+\begin{quote}
+\textbf{a)} Hadoop MapReduce is based on the functional programing
+paradigm. It is a declarative programming paradigm, which means
+programming is done with expressions. In functional code, the output
+value of a function depends only on the arguments that are input to the
+function. Key ideas in this paradigm include avoiding state
+changes/mutable data, and using higher-order functions (functions which
+take other functions as inputs). Map and reduce are examples of
+higher-order functions.
+\end{quote}
+
+\begin{quote}
+\textbf{b)} The 'shuffle' is where Hadoop partitions, sorts, and copies
+data over the network to reducer nodes. Partitioning of the mapper
+output gurantees that records with the same key will be processed by the
+same reducer task. This is costly because of the network transfer
+required \& the time complexity of doing a merge sort at scale. The key
+to mitigating the time/space cost of the shuffle is performing local
+aggregation either in memory in our mappers or by using a combiner.
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Since Hadoop does not guarantee that a combiner will be
+executed, our record format has to work whether or not it goes through
+the combiner. In other words, the signature of the input and output of
+the combiner must match the signature of the input to the reducer.
+\end{quote}
+
+\begin{quote}
+\textbf{d)} We can explicitly control the number of reducers used (for
+example by setting the \texttt{-numReduceTasks} parameter). But we can't
+force Hadoop to use the number of mappers we desire.
+\end{quote}
+
+\begin{quote}
+\textbf{e)} The rise of parallel computing frameworks was made possible
+by an increase in the availablility of cheap comodity hardware -\/-
+instead of investing in super computers the idea is to link together a
+lot of less powerful machines.
+\end{quote}
+
+    \section{Question 2: MapReduce Design
+Patterns.}\label{question-2-mapreduce-design-patterns.}
+
+In the last two live sessions and in your readings from Lin \& Dyer you
+encountered a number of techniques for manipulating the logistics of a
+MapReduce implementation to ensure that the right information is
+available at the right time and location. In this question we'll review
+a few of the key techniques you learned.
+
+\subsubsection{Q2 Tasks:}\label{q2-tasks}
+
+\begin{itemize}
+\item
+  \textbf{a) short response:} What are counters (in the context of
+  Hadoop Streaming)? How are they useful? What kinds of counters does
+  Hadoop provide for you? How do you create your own custom counter?
+\item
+  \textbf{b) short response:} What are composite keys? How are they
+  useful? How are they related to the idea of custom partitioning?
+\item
+  \textbf{c) short response:} What is the order inversion pattern? What
+  problem does it help solve? How do we implement it?
+\end{itemize}
+
+    \subsubsection{Q2 Student Answers:}\label{q2-student-answers}
+
+\begin{quote}
+\textbf{a)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{b)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{SOLUTIONS} \textgreater{} \textbf{a)} Counters are a shared
+variable that is incremented and decremented atomically by the Hadoop
+framework. This means that all running instances within a job can update
+this variable to get a total count at the end. This is a departure from
+the principle of statelessness but is very useful for confirming that
+your jobs are running properly or aggregating summary statistics while
+performing other computations. The built in counters tell us information
+about IO, timing, and job orchestration. These are useful because such
+information can help you optimize your jobs. Especially useful are the
+Job Counters that tell you how many map, combine, and reduce tasks were
+run as well as the Map-Reduce Framework counters that tell you how many
+lines were input and output from your tasks. To create a custom counter
+we just write to standard output. For example:
+\texttt{sys.stderr.write("reporter:counter:MyWordCounter,count,1\textbackslash{}n")}.
+It is important to keep in mind that counter values are not available to
+mapper and reducer functions, and are only exposed after the job has
+finished.
+
+\begin{quote}
+\textbf{a)} A composite key is when we package two pieces of information
+together to form the key that Hadoop will shuffle. This can be done by
+literally combining them as a string or by specifying that Hadoop should
+pay attention to two fields when shuffling. Composite keys are primarily
+useful when we want to control which sets of keys are shuffled to the
+same reducer node. In that scenario we would 'combine' a partition key
+with our regular key to customize which records end up together.
+\end{quote}
+
+\begin{quote}
+\textbf{c)} The order inversion pattern is when we use a special key to
+ensure that some piece of information arrives first at a reducer node.
+In some situations this can help us avoid a second shuffle, for example
+if you want to normalize values by a total but won't have access to the
+total until your sub-tallies are shuffled together.
+\end{quote}
+
+    \section{Question 3: Understanding Total Order
+Sort}\label{question-3-understanding-total-order-sort}
+
+The key challenge in distributed computing is to break a problem into a
+set of sub-problems that can be performed without communicating with
+each other. Ideally, we should be able to define an arbirtary number of
+splits and still get the right result, but that is not always possible.
+Parallelization becomes particularly challenging when we need to make
+comparisons between records, for example when sorting. Total Order Sort
+allows us to order large datasets in a way that enables efficient
+retrieval of results. Before beginning this assignment, make sure you
+have read and understand the
+\href{https://github.com/UCB-w261/main/tree/master/HelpfulResources/TotalSortGuide/_total-sort-guide-spark2.01-JAN27-2017.ipynb}{Total
+Order Sort Notebook}. You can skip the first two MRJob sections, but the
+rest of section III and all of section IV are \textbf{very} important
+(and apply to Hadoop Streaming) so make sure to read them closely. Feel
+free to read the Spark sections as well but you won't be responsible for
+that material until later in the course. To verify your understanding,
+answer the following questions.
+
+\subsubsection{Q3 Tasks:}\label{q3-tasks}
+
+\begin{itemize}
+\item
+  \textbf{a) short response:} What is the difference between a partial
+  sort, an unordered total sort, and a total order sort? From the
+  programmer's perspective, what does total order sort allow us to do
+  that we can't with unordered total? Why is this important with large
+  datasets?
+\item
+  \textbf{b) short response:} Which phase of a MapReduce job is
+  leveraged to implement Total Order Sort? Which default behaviors must
+  be changed. Why must they be changed?
+\item
+  \textbf{c) short response:} Describe in words how to configure a
+  Hadoop Streaming job for the custom sorting and partitioning that is
+  required for Total Order Sort.
+\item
+  \textbf{d) short response:} Explain why we need to use an inverse hash
+  code function.
+\item
+  \textbf{e) short response:} Where does this function need to be
+  located so that a Total Order Sort can be performed?
+\end{itemize}
+
+    \subsubsection{Q3 Student Answers:}\label{q3-student-answers}
+
+\begin{quote}
+\textbf{a)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{b)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{d)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{e)} Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\_\_ SOLUTIONS \_\_
+
+\begin{quote}
+\textbf{a)} The key thing that total order sort facillitates is the
+ability to sort with multiple reducers and the guarantee that the top N
+results will end up in the first partition. This is key because for
+really large data sets it would be time consuming to check all of the
+paritions to find the subset of the results you need. - partial sort:
+Each partition file is sorted independently of each other.
+Concatentating such partitions would result in an unsorted file. -
+unordered total sort: Partition files are all sorted according to the
+same key but there is no guarantee about which chunk of output is where.
+Concatenating these files would only result in a sorted file if the
+partitions were appropriately reordered. - total ordered sort: An
+unordered total sort where a custom partitioner was used so that the
+output files are sorted in order according to output filename.
+Concatentaing these files would result in a single completely sorted
+file witout any further intervention.
+\end{quote}
+
+\begin{quote}
+\textbf{b)} The shuffle/sort phase is where the sorting functionality
+takes place. To implement Total Order Sort, we must override the default
+partitioning behavior. By default, Hadoop does an alphanumerically
+increasing sort on a single key field within each partition resulting in
+partial order sort.
+\end{quote}
+
+\begin{quote}
+\textbf{c)} The Hadoop Streaming job is configured via several command
+line options. To perform custom operations, the number of fields to
+consider for the key and the separator token between key fields must be
+specified if they are different from the default. For custom sorting, we
+must also speficy the comparator class along with the comparator options
+that control how each key field will be sorted, ie the order to consider
+fields and if they should be sorted numerically or in reverse. For
+custom partitioning, we must also specify the custom partitioner class
+along with which key field(s) to partition on.
+\end{quote}
+
+\begin{quote}
+\textbf{c)} The inverse hash code lets us know the actual key that
+Hadoop will use for partitioning. By knowing this, we can reorder the
+partition keys that we are using according to the order that they will
+be sorted in after being hashed. Without this, we cannot know which
+partition key to use for which partition so that they end result is
+ordered by file name.
+\end{quote}
+
+\begin{quote}
+\textbf{e)} The inverse hash function must be accesible before
+partitioning takes place. Hense, it needs to reside inside the mapper
+function.
+\end{quote}
+
+    \section{About the Data}\label{about-the-data}
+
+For the main task in this portion of the homework you will train a
+classifier to determine whether an email represents spam or not. You
+will train your Naive Bayes model on a 100 record subset of the Enron
+Spam/Ham corpus available in the HW2 data directory
+(\textbf{\texttt{HW2/data/enronemail\_1h.txt}}).
+
+\textbf{Source:}\\
+The original data included about 93,000 emails which were made public
+after the company's collapse. There have been a number raw and
+preprocessed versions of this corpus (including those available
+\href{http://www.aueb.gr/users/ion/data/enron-spam/index.html}{here} and
+\href{http://www.aueb.gr/users/ion/publications.html}{here}). The subset
+we will use is limited to emails from 6 Enron employees and a number of
+spam sources. It is part of
+\href{http://www.aueb.gr/users/ion/data/enron-spam/}{this data set}
+which was created by researchers working on personlized Bayesian spam
+filters. Their original publication is
+\href{http://www.aueb.gr/users/ion/docs/ceas2006_paper.pdf}{available
+here}. \textbf{\texttt{IMPORTANT!}} \emph{For this homework please limit
+your analysis to the 100 email subset which we provide. No need to
+download or run your analysis on any of the original datasets, those
+links are merely provided as context.}
+
+\textbf{Preprocessing:}\\
+For their work, Metsis et al. (the authors) appeared to have
+pre-processed the data, not only collapsing all text to lower-case, but
+additionally separating "words" by spaces, where "words" unfortunately
+include punctuation. As a concrete example, the sentence:\\
+\textgreater{}
+\texttt{Hey\ Jon,\ I\ hope\ you\ don\textquotesingle{}t\ get\ lost\ out\ there\ this\ weekend!}
+
+... would have been reduced by Metsis et al. to the form:\\
+\textgreater{}
+\texttt{hey\ jon\ ,\ i\ hope\ you\ don\ \textquotesingle{}\ t\ get\ lost\ out\ there\ this\ weekend\ !}
+
+... so we have reverted the data back toward its original state,
+removing spaces so that our sample sentence would now look like:
+\textgreater{}
+\texttt{hey\ jon,\ i\ hope\ you\ don\textquotesingle{}t\ get\ lost\ out\ there\ this\ weekend!}
+
+Thus we have at least preserved contractions and other higher-order
+lexical forms. However, one must be aware that this reversion is not
+complete, and that some object (specifically web sites) will be
+ill-formatted, and that all text is still lower-cased.
+
+\textbf{Format:}\\
+All messages are collated to a tab-delimited format:
+
+\begin{quote}
+\texttt{ID\ \textbackslash{}t\ SPAM\ \textbackslash{}t\ SUBJECT\ \textbackslash{}t\ CONTENT\ \textbackslash{}n}
+\end{quote}
+
+where:\\
+\textgreater{} \texttt{ID\ =\ string;\ unique\ message\ identifier}\\
+\texttt{SPAM\ =\ binary;\ with\ 1\ indicating\ a\ spam\ message}\\
+\texttt{SUBJECT\ =\ string;\ title\ of\ the\ message}\\
+\texttt{CONTENT\ =\ string;\ content\ of\ the\ message}
+
+Note that either of \texttt{SUBJECT} or \texttt{CONTENT} may be "NA",
+and that all tab (\t) and newline (\n) characters have been removed from
+both of the \texttt{SUBJECT} and \texttt{CONTENT} columns.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{o}{!}pwd
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/media/notebooks/Assignments/HW2/master
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} take a look at the first 100 characters of the first 5 records (RUN THIS CELL AS IS)}
+         \PY{o}{!}head \PYZhy{}n \PY{l+m}{5} /media/notebooks/Assignments/HW2/master/\PY{o}{\PYZob{}}ENRON\PY{o}{\PYZcb{}} \PY{p}{|} cut \PYZhy{}c\PYZhy{}100
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0001.1999-12-10.farmer	0	 christmas tree farm pictures	NA
+0001.1999-12-10.kaminski	0	 re: rankings	 thank you.
+0001.2000-01-17.beck	0	 leadership development pilot	" sally:  what timing, ask and you shall receiv
+0001.2000-06-06.lokay	0	" key dates and impact of upcoming sap implementation over the next few week
+0001.2001-02-07.kitchen	0	 key hr issues going forward	 a) year end reviews-report needs generating 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} see how many messages/lines are in the file }
+         \PY{c+c1}{\PYZsh{}(this number may be off by 1 if the last line doesn\PYZsq{}t end with a newline)}
+         \PY{o}{!}wc \PYZhy{}l /media/notebooks/Assignments/HW2/master\PY{o}{\PYZob{}}ENRON\PY{o}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100 /media/notebooks/Assignments/HW2/master//data/enronemail\_1h.txt
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} make the HDFS directory if it doesn\PYZsq{}t already exist}
+         \PY{o}{!}hdfs dfs \PYZhy{}mkdir \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mkdir: `/user/root/HW2': File exists
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} load the data into HDFS (RUN THIS CELL AS IS)}
+         \PY{o}{!}hdfs dfs \PYZhy{}copyFromLocal /media/notebooks/Assignments/HW2/master\PY{o}{\PYZob{}}ENRON\PY{o}{\PYZcb{}} \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/enron.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{o}{!}hdfs dfs \PYZhy{}ls \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Found 1 items
+-rw-r--r--   1 root supergroup     204559 2019-01-29 14:45 /user/root/HW2/enron.txt
+
+    \end{Verbatim}
+
+    \section{Question 4: Enron Ham/Spam
+EDA.}\label{question-4-enron-hamspam-eda.}
+
+Before building our classifier, lets get aquainted with our data. In
+particular, we're interested in which words occur more in spam emails
+than in real emails. In this question you'll implement two Hadoop
+MapReduce jobs to count and sort word occurrences by document class.
+You'll also learn about two new Hadoop streaming parameters that will
+allow you to control how the records output of your mappers are
+partitioned for reducing on separate nodes.
+
+\textbf{\texttt{IMPORTANT\ NOTE:}} For this question and all subsequent
+items, you should include both the subject and the body of the email in
+your analysis (i.e. concatetate them to get the 'text' of the document).
+
+\subsubsection{Q4 Tasks:}\label{q4-tasks}
+
+\begin{itemize}
+\item
+  \textbf{a) code:} Complete the missing components of the code in
+  \textbf{\texttt{EnronEDA/mapper.py}} and
+  \textbf{\texttt{EnronEDA/reducer.py}} to create a Hadoop MapReduce job
+  that counts how many times each word in the corpus occurs in an email
+  for each class. Pay close attention to the data format specified in
+  the docstrings of these scripts \emph{-\/- there are a number of ways
+  to accomplish this task, we've chosen this format to help illustrate a
+  technique in \texttt{part\ e}}. Run the provided unit tests to confirm
+  that your code works as expected then run the provided Hadoop
+  streaming command to apply your analysis to the Enron data.
+\item
+  \textbf{b) code + short response:} How many times does the word
+  "\textbf{assistance}" occur in each class? (\texttt{HINT:} Use a
+  \texttt{grep} command to read from the results file you generated in
+  '\texttt{a}' and then report the answer in the space provided.)
+\item
+  \textbf{c) short response:} Would it have been possible to add some
+  sorting parameters to the Hadoop streaming command that would cause
+  our \texttt{part\ a} results to be sorted by count? Briefly explain
+  why or why not.
+\item
+  \textbf{d) code + short response:} Write a second Hadoop MapReduce job
+  to sort the output of \texttt{part\ a} first by class and then by
+  count. Run your job and save the results to a local file. Then
+  describe in words how you would go about printing the top 10 words in
+  each class given this sorted output. (\texttt{HINT\ 1:} \emph{remember
+  that you can simply pass the \texttt{part\ a} output directory to the
+  input field of this job; \texttt{HINT\ 2:} since this task is just
+  reodering the records from \texttt{part\ a} we don't need to write a
+  mapper or reducer, just use \texttt{/bin/cat} for both})
+\item
+  \_\_ e) code:\_\_ A more efficient alternative to '\texttt{grep}-ing'
+  for the top 10 words in each class would be to use the Hadoop
+  framework to separate records from each class into its own partition
+  so that we can just read the top lines in each. Edit your job from
+  \texttt{part\ d} to specify 2 reduce tasks and to tell Hadoop to
+  partition based on the second field (which indicates spam/ham in our
+  data). Your code should maintain the secondary sort -\/- that is each
+  partition should list words from most to least frequent.
+\end{itemize}
+
+    \subsubsection{Q4 Student Answers:}\label{q4-student-answers}
+
+\begin{quote}
+\textbf{b)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{d)} Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\_\_ SOLUTIONS \_\_ \textgreater{} \textbf{b)} 'assistance' occurs 8
+times in Spam emails and only 2 times in real emails.
+
+\begin{quote}
+\textbf{c)} No, we can't sort on counts in the original job because
+Hadoop's sorting occurs in the phase between the mapper and reducer but
+our counts aren't tallied up until after the reducer.
+\end{quote}
+
+\begin{quote}
+\textbf{d)} The result of this job is sorted by count with each word
+getting two records (one for 'spam' and one for 'ham'). To get the top
+counts in each class we could grep for the class marker that is listed
+in the second field. This is an non-ideal solution because the class
+markers (0 and 1) will also occur inside counts for other words).
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} part a \PYZhy{} do your work in the provided scripts then RUN THIS CELL AS IS}
+         \PY{o}{!}chmod a+x EnronEDA/mapper.py
+         \PY{o}{!}chmod a+x EnronEDA/reducer.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{} part a \PYZhy{} unit test EnronEDA/mapper.py (RUN THIS CELL AS IS)}
+         \PY{o}{!}\PY{n+nb}{echo} \PYZhy{}e \PY{l+s+s2}{\PYZdq{}d1	1	title	body\PYZbs{}nd2	0	title	body\PYZdq{}} \PY{p}{|} EnronEDA/mapper.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+title	1	1
+body	1	1
+title	0	1
+body	0	1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{c+c1}{\PYZsh{} part a \PYZhy{} unit test EnronEDA/reducer.py (RUN THIS CELL AS IS)}
+         \PY{o}{!}\PY{n+nb}{echo} \PYZhy{}e \PY{l+s+s2}{\PYZdq{}one	1	1\PYZbs{}none	0	1\PYZbs{}none	0	1\PYZbs{}ntwo	0	1\PYZdq{}} \PY{p}{|} EnronEDA/reducer.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+one	1	1
+one	0	2
+two	1	0
+two	0	1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} part a \PYZhy{} clear output directory in HDFS (RUN THIS CELL AS IS)}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/eda\PYZhy{}output
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rm: `/user/root/HW2/eda-output': No such file or directory
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} part a \PYZhy{} Hadoop streaming job (RUN THIS CELL AS IS)}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{EnronEDA}\PY{o}{/}\PY{n}{reducer}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{EnronEDA}\PY{o}{/}\PY{n}{mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{eda}\PY{o}{\PYZhy{}}\PY{n}{output} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{numReduceTasks} \PY{l+m+mi}{2} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+packageJobJar: [] [/usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.15.1.jar] /tmp/streamjob1681665864625659839.jar tmpDir=null
+19/01/29 14:50:23 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/01/29 14:50:23 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/01/29 14:50:25 INFO mapred.FileInputFormat: Total input paths to process : 1
+19/01/29 14:50:25 INFO mapreduce.JobSubmitter: number of splits:2
+19/01/29 14:50:25 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1548691524774\_0006
+19/01/29 14:50:26 INFO impl.YarnClientImpl: Submitted application application\_1548691524774\_0006
+19/01/29 14:50:26 INFO mapreduce.Job: The url to track the job: http://docker.w261:8088/proxy/application\_1548691524774\_0006/
+19/01/29 14:50:26 INFO mapreduce.Job: Running job: job\_1548691524774\_0006
+19/01/29 14:50:39 INFO mapreduce.Job: Job job\_1548691524774\_0006 running in uber mode : false
+19/01/29 14:50:39 INFO mapreduce.Job:  map 0\% reduce 0\%
+19/01/29 14:50:50 INFO mapreduce.Job:  map 50\% reduce 0\%
+19/01/29 14:50:51 INFO mapreduce.Job:  map 100\% reduce 0\%
+19/01/29 14:51:00 INFO mapreduce.Job:  map 100\% reduce 100\%
+19/01/29 14:51:01 INFO mapreduce.Job: Job job\_1548691524774\_0006 completed successfully
+19/01/29 14:51:01 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=369010
+		FILE: Number of bytes written=1335754
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=217061
+		HDFS: Number of bytes written=119173
+		HDFS: Number of read operations=12
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=2
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=17574
+		Total time spent by all reduces in occupied slots (ms)=15441
+		Total time spent by all map tasks (ms)=17574
+		Total time spent by all reduce tasks (ms)=15441
+		Total vcore-milliseconds taken by all map tasks=17574
+		Total vcore-milliseconds taken by all reduce tasks=15441
+		Total megabyte-milliseconds taken by all map tasks=17995776
+		Total megabyte-milliseconds taken by all reduce tasks=15811584
+	Map-Reduce Framework
+		Map input records=100
+		Map output records=31490
+		Map output bytes=306018
+		Map output materialized bytes=369022
+		Input split bytes=214
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=5065
+		Reduce shuffle bytes=369022
+		Reduce input records=31490
+		Reduce output records=10130
+		Spilled Records=62980
+		Shuffled Maps =4
+		Failed Shuffles=0
+		Merged Map outputs=4
+		GC time elapsed (ms)=418
+		CPU time spent (ms)=9490
+		Physical memory (bytes) snapshot=986681344
+		Virtual memory (bytes) snapshot=5504147456
+		Total committed heap usage (bytes)=1045430272
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=216847
+	File Output Format Counters 
+		Bytes Written=119173
+19/01/29 14:51:01 INFO streaming.StreamJob: Output directory: /user/root/HW2/eda-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} part a \PYZhy{} retrieve results from HDFS \PYZam{} copy them into a local file (RUN THIS CELL AS IS)}
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/eda\PYZhy{}output/part\PYZhy{}0000* \PYZgt{} EnronEDA/results.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} write your grep command here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} write your grep command here}
+         \PY{o}{!}grep assistance EnronEDA/results.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+assistance	1	8
+assistance	0	2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{} part d/e \PYZhy{} clear the output directory in HDFS (RUN THIS CELL AS IS)}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/eda\PYZhy{}sort\PYZhy{}output
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rm: `/user/root/HW2/eda-sort-output': No such file or directory
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} part d/e \PYZhy{} write your Hadoop streaming job here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part d/e \PYZhy{} write your Hadoop streaming job here}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{stream}\PY{o}{.}\PY{n}{num}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{output}\PY{o}{.}\PY{n}{key}\PY{o}{.}\PY{n}{fields}\PY{o}{=}\PY{l+m+mi}{3} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{job}\PY{o}{.}\PY{n}{output}\PY{o}{.}\PY{n}{key}\PY{o}{.}\PY{n}{comparator}\PY{o}{.}\PY{n}{class}\PY{o}{=}\PY{n}{org}\PY{o}{.}\PY{n}{apache}\PY{o}{.}\PY{n}{hadoop}\PY{o}{.}\PY{n}{mapred}\PY{o}{.}\PY{n}{lib}\PY{o}{.}\PY{n}{KeyFieldBasedComparator} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{partition}\PY{o}{.}\PY{n}{keycomparator}\PY{o}{.}\PY{n}{options}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}k3,3nr}\PY{l+s+s2}{\PYZdq{}} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{partition}\PY{o}{.}\PY{n}{keypartitioner}\PY{o}{.}\PY{n}{options}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}k2,2}\PY{l+s+s2}{\PYZdq{}} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{o}{/}\PY{n+nb}{bin}\PY{o}{/}\PY{n}{cat} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{o}{/}\PY{n+nb}{bin}\PY{o}{/}\PY{n}{cat} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{eda}\PY{o}{\PYZhy{}}\PY{n}{output} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{eda}\PY{o}{\PYZhy{}}\PY{n}{sort}\PY{o}{\PYZhy{}}\PY{n}{output} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{partitioner} \PY{n}{org}\PY{o}{.}\PY{n}{apache}\PY{o}{.}\PY{n}{hadoop}\PY{o}{.}\PY{n}{mapred}\PY{o}{.}\PY{n}{lib}\PY{o}{.}\PY{n}{KeyFieldBasedPartitioner} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{numReduceTasks} \PY{l+m+mi}{2} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+packageJobJar: [] [/usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.15.1.jar] /tmp/streamjob4013346112685752393.jar tmpDir=null
+19/01/29 14:54:58 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/01/29 14:54:58 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/01/29 14:54:59 INFO mapred.FileInputFormat: Total input paths to process : 2
+19/01/29 14:55:00 INFO mapreduce.JobSubmitter: number of splits:2
+19/01/29 14:55:00 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1548691524774\_0007
+19/01/29 14:55:00 INFO impl.YarnClientImpl: Submitted application application\_1548691524774\_0007
+19/01/29 14:55:00 INFO mapreduce.Job: The url to track the job: http://docker.w261:8088/proxy/application\_1548691524774\_0007/
+19/01/29 14:55:00 INFO mapreduce.Job: Running job: job\_1548691524774\_0007
+19/01/29 14:55:09 INFO mapreduce.Job: Job job\_1548691524774\_0007 running in uber mode : false
+19/01/29 14:55:09 INFO mapreduce.Job:  map 0\% reduce 0\%
+19/01/29 14:55:18 INFO mapreduce.Job:  map 50\% reduce 0\%
+19/01/29 14:55:19 INFO mapreduce.Job:  map 100\% reduce 0\%
+19/01/29 14:55:28 INFO mapreduce.Job:  map 100\% reduce 100\%
+19/01/29 14:55:28 INFO mapreduce.Job: Job job\_1548691524774\_0007 completed successfully
+19/01/29 14:55:28 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=149575
+		FILE: Number of bytes written=894376
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=119411
+		HDFS: Number of bytes written=129303
+		HDFS: Number of read operations=12
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=2
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=12027
+		Total time spent by all reduces in occupied slots (ms)=13117
+		Total time spent by all map tasks (ms)=12027
+		Total time spent by all reduce tasks (ms)=13117
+		Total vcore-milliseconds taken by all map tasks=12027
+		Total vcore-milliseconds taken by all reduce tasks=13117
+		Total megabyte-milliseconds taken by all map tasks=12315648
+		Total megabyte-milliseconds taken by all reduce tasks=13431808
+	Map-Reduce Framework
+		Map input records=10130
+		Map output records=10130
+		Map output bytes=129303
+		Map output materialized bytes=149587
+		Input split bytes=238
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=10130
+		Reduce shuffle bytes=149587
+		Reduce input records=10130
+		Reduce output records=10130
+		Spilled Records=20260
+		Shuffled Maps =4
+		Failed Shuffles=0
+		Merged Map outputs=4
+		GC time elapsed (ms)=142
+		CPU time spent (ms)=6570
+		Physical memory (bytes) snapshot=978849792
+		Virtual memory (bytes) snapshot=5494063104
+		Total committed heap usage (bytes)=912785408
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=119173
+	File Output Format Counters 
+		Bytes Written=129303
+19/01/29 14:55:28 INFO streaming.StreamJob: Output directory: /user/root/HW2/eda-sort-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} view the top 10 records from each partition (RUN THIS CELL AS IS)}
+         \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{===== part\PYZhy{}0000}\PY{l+s+si}{\PYZob{}idx\PYZcb{}}\PY{l+s+s2}{=====}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/eda\PYZhy{}sort\PYZhy{}output/part\PYZhy{}0000\PY{o}{\PYZob{}}idx\PY{o}{\PYZcb{}} \PY{p}{|} head
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+===== part-00000=====
+
+the	0	549	
+to	0	398	
+ect	0	382	
+and	0	278	
+of	0	230	
+hou	0	206	
+a	0	196	
+in	0	182	
+for	0	170	
+on	0	135	
+cat: Unable to write to output stream.
+
+===== part-00001=====
+
+the	1	698	
+to	1	566	
+and	1	392	
+your	1	357	
+a	1	347	
+you	1	345	
+of	1	336	
+in	1	236	
+for	1	204	
+com	1	153	
+cat: Unable to write to output stream.
+
+    \end{Verbatim}
+
+    \textbf{Expected output:}
+
+part-00000:
+
+part-00001:
+
+    \section{Question 5: Counters and
+Combiners.}\label{question-5-counters-and-combiners.}
+
+Tuning the number of mappers \& reducers is helpful to optimize very
+large distributed computations. Doing so successfully requires a
+thorough understanding of the data size at each stage of the job. As you
+learned in the week3 live session, counters are an invaluable resource
+for understanding this kind of detail. In this question, we will take
+the EDA performed in Question 4 as an opportunity to illustrate some
+related concepts.
+
+\subsubsection{Q5 Tasks:}\label{q5-tasks}
+
+\begin{itemize}
+\item
+  \textbf{a) short response:} Read the Hadoop output from your job in
+  Question 4a to report how many records are emitted by the mappers and
+  how many records are received be the reducers. In the context of word
+  counting what does this number represent practically?
+\item
+  \textbf{b) code:} Note that we wrote the reducer in question 4a such
+  that the input and output record format is identical. This makes it
+  easy to use the same reducer script as a combiner. In the space
+  provided below, write the Hadoop Streaming command to re-run your job
+  from question 4a with this combining added.
+\item
+  \textbf{c) short response}: Report the number of records emitted by
+  your mappers in part b and the number of records received by your
+  reducers. Compare your results here to what you saw in part a.
+  Explain.
+\item
+  \textbf{d) short response}: Describe a scenario where using a combiner
+  would \emph{NOT} improve the efficiency of the shuffle stage. Explain.
+  {[}\textbf{\texttt{BONUS:}} how does increasing the number of mappers
+  affect the usefulness of a combiner?{]}
+\end{itemize}
+
+    \subsubsection{Q5 Student Answers:}\label{q5-student-answers}
+
+\begin{quote}
+\textbf{a)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{d)} Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\_\_ SOLUTIONS \_\_
+
+\begin{quote}
+\textbf{a)} The mapper output is the same \# of records as the reducer
+input: 31490. This is the total number of words in all documents.
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Now the mapper output \# records (31490) no longer matches
+the reducer input \# of recrods (13096). This is because the combiner
+reduced the number of records after they were emitted by the mapper.
+\end{quote}
+
+\begin{quote}
+\textbf{d)} In a scenario where there are no duplicate keys on any given
+mapper node a combiner wouldn't help reduce the size of the shuffle. (If
+we have a lot of keys in our data/ they are sparsely distributed in the
+input then increasing the number of mappers will decrease the amount of
+duplication and reduce the effectiveness of a combiner).
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} clear output directory in HDFS (RUN THIS CELL AS IS)}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/eda\PYZhy{}output
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Deleted /user/root/HW2/eda-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}295}]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} write your Hadoop streaming job here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} write your Hadoop streaming job here}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{EnronEDA}\PY{o}{/}\PY{n}{reducer}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{EnronEDA}\PY{o}{/}\PY{n}{mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{combiner} \PY{n}{reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{eda}\PY{o}{\PYZhy{}}\PY{n}{output} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{numReduceTasks} \PY{l+m+mi}{2} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+packageJobJar: [] [/usr/jars/hadoop-streaming-2.6.0-cdh5.7.0.jar] /tmp/streamjob1114465578212195955.jar tmpDir=null
+18/04/30 22:57:06 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/04/30 22:57:06 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/04/30 22:57:07 INFO mapred.FileInputFormat: Total input paths to process : 1
+18/04/30 22:57:07 INFO mapreduce.JobSubmitter: number of splits:2
+18/04/30 22:57:08 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1525015259038\_0010
+18/04/30 22:57:08 INFO impl.YarnClientImpl: Submitted application application\_1525015259038\_0010
+18/04/30 22:57:08 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application\_1525015259038\_0010/
+18/04/30 22:57:08 INFO mapreduce.Job: Running job: job\_1525015259038\_0010
+18/04/30 22:57:16 INFO mapreduce.Job: Job job\_1525015259038\_0010 running in uber mode : false
+18/04/30 22:57:16 INFO mapreduce.Job:  map 0\% reduce 0\%
+18/04/30 22:57:25 INFO mapreduce.Job:  map 50\% reduce 0\%
+18/04/30 22:57:26 INFO mapreduce.Job:  map 100\% reduce 0\%
+18/04/30 22:57:35 INFO mapreduce.Job:  map 100\% reduce 50\%
+18/04/30 22:57:36 INFO mapreduce.Job:  map 100\% reduce 100\%
+18/04/30 22:57:36 INFO mapreduce.Job: Job job\_1525015259038\_0010 completed successfully
+18/04/30 22:57:36 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=177959
+		FILE: Number of bytes written=826224
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=217061
+		HDFS: Number of bytes written=119173
+		HDFS: Number of read operations=12
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=2
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=13482
+		Total time spent by all reduces in occupied slots (ms)=13582
+		Total time spent by all map tasks (ms)=13482
+		Total time spent by all reduce tasks (ms)=13582
+		Total vcore-seconds taken by all map tasks=13482
+		Total vcore-seconds taken by all reduce tasks=13582
+		Total megabyte-seconds taken by all map tasks=13805568
+		Total megabyte-seconds taken by all reduce tasks=13907968
+	Map-Reduce Framework
+		Map input records=100
+		Map output records=31490
+		Map output bytes=306018
+		Map output materialized bytes=177971
+		Input split bytes=214
+		Combine input records=31490
+		Combine output records=13096
+		Reduce input groups=5065
+		Reduce shuffle bytes=177971
+		Reduce input records=13096
+		Reduce output records=10130
+		Spilled Records=26192
+		Shuffled Maps =4
+		Failed Shuffles=0
+		Merged Map outputs=4
+		GC time elapsed (ms)=140
+		CPU time spent (ms)=9380
+		Physical memory (bytes) snapshot=939147264
+		Virtual memory (bytes) snapshot=5463068672
+		Total committed heap usage (bytes)=692060160
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=216847
+	File Output Format Counters 
+		Bytes Written=119173
+18/04/30 22:57:36 INFO streaming.StreamJob: Output directory: /user/root/HW2/eda-output
+
+    \end{Verbatim}
+
+    \section{Question 6: Document Classification Task
+Overview.}\label{question-6-document-classification-task-overview.}
+
+The week 2 assigned reading from Chapter 13 of \emph{Introduction to
+Information Retrieval} by Manning, Raghavan and Schutze provides a
+thorough introduction to the document classification task and the math
+behind Naive Bayes. In this question we'll use the example from Table
+13.1 (reproduced below) to 'train' an unsmoothed Multinomial Naive Bayes
+model and classify a test document by hand.
+
+DocID
+
+Class
+
+Subject
+
+Body
+
+Doc1
+
+1
+
+Chinese Beijing Chinese
+
+Doc2
+
+1
+
+Chinese Chinese Shanghai
+
+Doc3
+
+1
+
+Chinese Macao
+
+Doc4
+
+0
+
+Tokyo Japan Chinese
+
+\subsubsection{Q6 Tasks:}\label{q6-tasks}
+
+\begin{itemize}
+\item
+  \textbf{a) short response:} Equation 13.3 in Manning, Raghavan and
+  Shutze shows how a Multinomial Naive Bayes model classifies a
+  document. It predicts the class, \(c\), for which the estimated
+  conditional probability of the class given the document's contents,
+  \(\hat{P}(c|d)\), is greatest. In this equation what two pieces of
+  information are required to calculate \(\hat{P}(c|d)\)? Your answer
+  should include both mathematical notatation and verbal explanation.
+\item
+  \textbf{b) short response:} The Enron data includes two classes of
+  documents: \texttt{spam} and \texttt{ham} (they're actually labeled
+  \texttt{1} and \texttt{0}). In plain English, explain what
+  \(\hat{P}(c)\) and \(\hat{P}(t_{k} | c)\) mean in the context of this
+  data. How will we would estimate these values from a training corpus?
+  How many passes over the data would we need to make to retrieve this
+  information for all classes and all words?
+\item
+  \textbf{c) hand calculations:} Above we've reproduced the document
+  classification example from the textbook (we added an empty subject
+  field to mimic the Enron data format). Remember that the classes in
+  this "Chinese Example" are \texttt{1} (about China) and \texttt{0}
+  (not about China). Calculate the class priors and the conditional
+  probabilities for an \textbf{unsmoothed} Multinomial Naive Bayes model
+  trained on this data. Show the calculations that lead to your result
+  using markdown and \(\LaTeX\) in the space provided or by embedding an
+  image of your hand written work. {[}\texttt{NOTE:} \emph{Your results
+  should NOT match those in the text -\/- they are training a model with
+  +1 smoothing you are training a model without smoothing}{]}
+\item
+  \textbf{d) hand calculations:} Use the model you trained to classify
+  the following test document:
+  \texttt{Chinese\ Chinese\ Chinese\ Tokyo\ Japan}. Show the
+  calculations that lead to your result using markdown and \(\LaTeX\) in
+  the space provided or by embedding an image of your hand written work.
+\item
+  \textbf{e) short response:} Compare the classification you get from
+  this unsmoothed model in \texttt{d}/\texttt{e} to the results in the
+  textbook's "Example 1" which reflects a model with Laplace plus 1
+  smoothing. How does smoothing affect our inference?
+\end{itemize}
+
+    \subsubsection{Q6 Student Answers:}\label{q6-student-answers}
+
+\begin{quote}
+\textbf{a)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{b)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Show your calculations here using markdown \& \(\LaTeX\) or
+embed them below!
+\end{quote}
+
+\begin{quote}
+\textbf{d)} Show your calculations here using markdown \& \(\LaTeX\) or
+embed them below!
+\end{quote}
+
+\begin{quote}
+\textbf{e)} Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\_\_ SOLUTIONS\_\_\\
+\textgreater{} \textbf{a)} The conditional probability of a class given
+the document is calculated from the estimated prior probabilty of the
+class, \(\hat{P}(c)\), and the estimated conditional probability of the
+documents' words given the class, \(\hat{P}(t_k | c)\).
+
+\begin{quote}
+\textbf{b)} In our use case \(\hat{P}(c)\) represents our assumption of
+how likely a document is to be \texttt{spam} or \texttt{ham} given no
+other information. We'll estimate this as the fraction of
+\texttt{spam}/\texttt{ham} documents in our training corpus. Similarly,
+\(\hat{P}(t_k | c)\), reflects the relative frequency of a word in
+\texttt{spam}/\texttt{ham} documents. We'll estimate that by counting
+the occurrences of each word in \texttt{spam}/\texttt{ham} and dividing
+by the total word count of all the documents in that class. We only need
+one pass over the data to tally up the information for these prior \&
+conditional probabilities... however after counting each word's
+occurrences in each class we will need to go on to divide by the class
+totals which is a little extra work after completing the pass over the
+data.
+\end{quote}
+
+\begin{quote}
+\textbf{c)} See image below for hand calculations.
+\end{quote}
+
+\begin{quote}
+\textbf{d)} Our model would classify this document as 'not about China'.
+See image below for hand calculations leading to this calculation.
+\end{quote}
+
+\begin{quote}
+\textbf{e)} The smoothed model in the textbook makes the opposite
+classification (it thinks Doc 5 is 'about China'). The main reason for
+this opposite classification is that in our unsmoothed model both
+\texttt{Tokyo} and \texttt{Japan} have class conditional probabilities
+of 0 in the 'about China' class.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part d/e \PYZhy{} if you didn\PYZsq{}t write out your calcuations above, embed a picture of them here:}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+        \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{path\PYZhy{}to\PYZhy{}hand\PYZhy{}calulations\PYZhy{}image.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part d/e \PYZhy{} if you didn\PYZsq{}t write out your calcuations above, embed a picture of them here:}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+         \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/media/notebooks/TAship/NaiveBayesHandCalc.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}37}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \section{Question 7: Naive Bayes
+Inference.}\label{question-7-naive-bayes-inference.}
+
+In the next two questions you'll write code to parallelize the Naive
+Bayes calculations that you performed above. We'll do this in two
+phases: one MapReduce job to perform training and a second MapReduce to
+perform inference. While in practice we'd need to train a model before
+we can use it to classify documents, for learning purposes we're going
+to develop our code in the opposite order. By first focusing on the
+pieces of information/format we need to perform the classification
+(inference) task you should find it easier to develop a solid
+implementation for training phase when you get to question 8 below. In
+both of these questions we'll continue to use the Chinese example corpus
+from the textbook to help us test our MapReduce code as we develop it.
+Below we've reproduced the corpus, test set and model in text format
+that matches the Enron data.
+
+\subsubsection{Q7 Tasks:}\label{q7-tasks}
+
+\begin{itemize}
+\item
+  \textbf{a) short response:} run the provided cells to create the
+  example files and load them in to HDFS. Then take a closer look at
+  \textbf{\texttt{NBmodel.txt}}. This text file represents a Naive Bayes
+  model trained (with Laplace +1 smoothing) on the example corpus. What
+  are the 'keys' and 'values' in this file? Which record means something
+  slightly different than the rest? The value field of each record
+  includes two numbers which will be helpful for debugging but which we
+  don't actually need to perform inference -\/- what are they?
+  {[}\texttt{HINT}: \emph{This file represents the model from Example
+  13.1 in the textbook, if you're having trouble getting oriented try
+  comparing our file to the numbers in that example.}{]}
+\item
+  \textbf{b) short response:} When performing Naive Bayes in practice
+  instead of multiplying the probabilities (as in equation 13.3) we add
+  their logs (as in equation 13.4). Why do we choose to work with log
+  probabilities? If we had an unsmoothed model, what potential error
+  could arise from this transformation?
+\item
+  \textbf{c) short response:} Documents 6 and 8 in the test set include
+  a word that did not appear in the training corpus (and as a result
+  does not appear in the model). What should we do at inference time
+  when we need a class conditional probability for this word?
+\item
+  \textbf{d) short response:} The goal of our MapReduce job is to stream
+  over the test set and classify each document by peforming the
+  calculation from equation 13.4. To do this we'll load the model file
+  (which contains the probabilities for equation 13.4) into memory on
+  the nodes where we do our mapping. This is called an in-memory join.
+  Does loading a model 'state' like this depart from the functional
+  programming principles? Explain why or why not. From a scability
+  perspective when would this kind of memory use be justified? when
+  would it be unwise?
+\item
+  \textbf{e) code:} Complete the code in
+  \textbf{\texttt{NaiveBayes/classify\_mapper.py}}. Read the docstring
+  carefully to understand how this script should work and the format it
+  should return. Run the provided unit tests to confirm that your script
+  works as expected then write a Hadoop streaming job to classify the
+  Chinese example test set. {[}\texttt{HINT\ 1:} \emph{you shouldn't
+  need a reducer for this one.} \texttt{HINT\ 2:} \emph{Don't forget to
+  add the model file to the} \texttt{-files} \emph{parameter in your
+  Hadoop streaming job so that it gets shipped to the mapper nodes where
+  it will be accessed by your script.}{]}
+\item
+  \textbf{f) short response:} In our test example and in the Enron data
+  set we have fairly short documents. Since these fit fine in memory on
+  a mapper node we didn't need a reducer and could just do all of our
+  calculations in the mapper. However with much longer documents (eg.
+  books) we might want a higher level of parallelization -\/- for
+  example we might want to process parts of a document on different
+  nodes. In this hypothetical scenario how would our algorithm design
+  change? What could the mappers still do? What key-value structure
+  would they emit? What would the reducers have to do as a last step?
+\end{itemize}
+
+    \subsubsection{Q7 Student Answers:}\label{q7-student-answers}
+
+\begin{quote}
+\textbf{a)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{b)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{c)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{d)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{e)} Complete the coding portion of this question before
+answering 'f'.
+\end{quote}
+
+\begin{quote}
+\textbf{f)} Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\_\_ SOLUTION \_\_ \textgreater{} \textbf{a)} The keys in the model file
+are words that appear in the training corpus. The values include 4
+numbers: count in \texttt{class\ 0}, count in \texttt{class\ 1},
+\texttt{P(w\textbar{}class0)}, \texttt{P(w\textbar{}class1)}. The counts
+are not needed for the Naive Bayes calculation but can be helpful to
+check for errors in our calculations. The special record is
+\texttt{ClassPriors} whose value includes counts of each type of
+document and relative frequencies.
+
+\begin{quote}
+\textbf{b)} Log probabilities help us avoid floating point errors but
+the risk with an unsmoothed model is that we might have words that only
+occur in one class and have a 0 conditional probability in the other.
+Since we can't take \texttt{log(0)} and would need to handle that case
+specially.
+\end{quote}
+
+\begin{quote}
+\textbf{c)} We could either assign the same conditional probability to
+each class (eg. 0.5 for two classes) or we could simply disregard that
+word since multiplying the same value for each class won't ultimately
+affect the argmax determination.
+\end{quote}
+
+\begin{quote}
+\textbf{d)} Loading the model into memory is a slight departure from
+statelessness since we're maintaining a model state. This is forgivable
+since we're not updating that state at all after it gets loaded on each
+mapper node so there's no risk of a race condition. Furthermore our
+model is small, however with a really large vocabulary the model could
+get too large to fit in memory and we might pursue a different solution
+in that case.
+\end{quote}
+
+\begin{quote}
+\textbf{f)} If we wanted to process parts of each document in parallel
+then the mapper should no longer be responsible for adding the log of
+the class priors (because that would end up getting added multiple
+times-\/- once for each mapper that encounters a piece of the same
+document). Our new mapper could still perform the conditional
+probability look-ups (emitting
+\texttt{DocID\ \textbackslash{}t\ log(P(word\textbar{}class0)),log(P(word\textbar{}class1))}).
+Then the reducers would add the log probabilities of all the words
+associated with each document (from all the mappers that processed a
+piece of that document) and then add the ClassPriors to make a final
+inference.
+\end{quote}
+
+    Run these cells to create the example corpus and model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{writefile} NaiveBayes/chineseTrain.txt
+         D1	1		Chinese Beijing Chinese
+         D2	1		Chinese Chinese Shanghai
+         D3	1		Chinese Macao
+         D4	0		Tokyo Japan Chinese
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Overwriting NaiveBayes/chineseTrain.txt
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{writefile} NaiveBayes/chineseTest.txt
+         D5	1		Chinese Chinese Chinese Tokyo Japan
+         D6	1		Beijing Shanghai Trade
+         D7	0		Japan Macao Tokyo
+         D8	0		Tokyo Japan Trade
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Overwriting NaiveBayes/chineseTest.txt
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{writefile} NBmodel.txt
+         beijing	0.0,1.0,0.111111111111,0.142857142857
+         chinese	1.0,5.0,0.222222222222,0.428571428571
+         tokyo	1.0,0.0,0.222222222222,0.0714285714286
+         shanghai	0.0,1.0,0.111111111111,0.142857142857
+         ClassPriors	1.0,3.0,0.25,0.75
+         japan	1.0,0.0,0.222222222222,0.0714285714286
+         macao	0.0,1.0,0.111111111111,0.142857142857
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Overwriting NBmodel.txt
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{} load the data files into HDFS}
+         \PY{o}{!}hdfs dfs \PYZhy{}copyFromLocal NaiveBayes/chineseTrain.txt \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}
+         \PY{o}{!}hdfs dfs \PYZhy{}copyFromLocal NaiveBayes/chineseTest.txt \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}
+\end{Verbatim}
+
+
+    Your work for \texttt{part\ e} starts here:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} do your work in NaiveBayes/classify\PYZus{}mapper.py first, then run this cell.}
+         \PY{o}{!}chmod a+x NaiveBayes/classify\PYZus{}mapper.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} unit test NaiveBayes/classify\PYZus{}mapper.py (RUN THIS CELL AS IS)}
+         \PY{o}{!}cat NaiveBayes/chineseTest.txt \PY{p}{|} NaiveBayes/classify\PYZus{}mapper.py \PY{p}{|} column \PYZhy{}t
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+d5  1  -8.90668134500626   -8.10769031284611   1
+d6  1  -5.780743515794329  -4.179502370564408  1
+d7  0  -6.591673732011658  -7.511706880737811  0
+d8  0  -4.394449154674438  -5.565796731681498  0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}309}]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} clear the output directory in HDFS (RUN THIS CELL AS IS)}
+          \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/chinese\PYZhy{}output
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Deleted /user/root/HW2/chinese-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}310}]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} write your Hadooop streaming job here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} write your Hadooop streaming job here}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{classify\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NBmodel}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{classify\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{o}{/}\PY{n+nb}{bin}\PY{o}{/}\PY{n}{cat} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{chineseTest}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{chinese}\PY{o}{\PYZhy{}}\PY{n}{output} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+packageJobJar: [] [/usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.15.1.jar] /tmp/streamjob6315567590803370021.jar tmpDir=null
+19/01/29 17:20:33 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/01/29 17:20:33 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/01/29 17:20:34 INFO mapred.FileInputFormat: Total input paths to process : 1
+19/01/29 17:20:34 INFO mapreduce.JobSubmitter: number of splits:2
+19/01/29 17:20:35 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1548691524774\_0008
+19/01/29 17:20:35 INFO impl.YarnClientImpl: Submitted application application\_1548691524774\_0008
+19/01/29 17:20:35 INFO mapreduce.Job: The url to track the job: http://docker.w261:8088/proxy/application\_1548691524774\_0008/
+19/01/29 17:20:35 INFO mapreduce.Job: Running job: job\_1548691524774\_0008
+19/01/29 17:20:46 INFO mapreduce.Job: Job job\_1548691524774\_0008 running in uber mode : false
+19/01/29 17:20:46 INFO mapreduce.Job:  map 0\% reduce 0\%
+19/01/29 17:20:53 INFO mapreduce.Job:  map 50\% reduce 0\%
+19/01/29 17:20:54 INFO mapreduce.Job:  map 100\% reduce 0\%
+19/01/29 17:21:02 INFO mapreduce.Job:  map 100\% reduce 100\%
+19/01/29 17:21:02 INFO mapreduce.Job: Job job\_1548691524774\_0008 completed successfully
+19/01/29 17:21:02 INFO mapreduce.Job: Counters: 50
+	File System Counters
+		FILE: Number of bytes read=192
+		FILE: Number of bytes written=448844
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=403
+		HDFS: Number of bytes written=178
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Killed map tasks=1
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=11215
+		Total time spent by all reduces in occupied slots (ms)=5072
+		Total time spent by all map tasks (ms)=11215
+		Total time spent by all reduce tasks (ms)=5072
+		Total vcore-milliseconds taken by all map tasks=11215
+		Total vcore-milliseconds taken by all reduce tasks=5072
+		Total megabyte-milliseconds taken by all map tasks=11484160
+		Total megabyte-milliseconds taken by all reduce tasks=5193728
+	Map-Reduce Framework
+		Map input records=4
+		Map output records=4
+		Map output bytes=178
+		Map output materialized bytes=198
+		Input split bytes=226
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=4
+		Reduce shuffle bytes=198
+		Reduce input records=4
+		Reduce output records=4
+		Spilled Records=8
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=156
+		CPU time spent (ms)=2880
+		Physical memory (bytes) snapshot=792498176
+		Virtual memory (bytes) snapshot=4098539520
+		Total committed heap usage (bytes)=819462144
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=177
+	File Output Format Counters 
+		Bytes Written=178
+19/01/29 17:21:02 INFO streaming.StreamJob: Output directory: /user/root/HW2/chinese-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} retrieve test set results from HDFS (RUN THIS CELL AS IS)}
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/chinese\PYZhy{}output/part\PYZhy{}000* \PYZgt{} NaiveBayes/chineseResults.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} take a look (RUN THIS CELL AS IS)}
+         \PY{o}{!}cat NaiveBayes/chineseResults.txt \PY{p}{|} column \PYZhy{}t
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+d5  1  -8.90668134500626   -8.10769031284611   1
+d6  1  -5.780743515794329  -4.179502370564408  1
+d7  0  -6.591673732011658  -7.511706880737811  0
+d8  0  -4.394449154674438  -5.565796731681498  0
+
+    \end{Verbatim}
+
+    Expected output for the test set:
+
+    \section{Question 8: Naive Bayes
+Training.}\label{question-8-naive-bayes-training.}
+
+In Question 7 we used a model that we had trained by hand. Next we'll
+develop the code to do that same training in parallel, making it
+suitable for use with larger corpora (like the Enron emails). The end
+result of the MapReduce job you write in this question should be a model
+text file that looks just like the example (\texttt{NBmodel.txt}) that
+we created by hand above.
+
+To refresh your memory about the training process take a look at
+\texttt{6a} and \texttt{6b} where you described the pieces of
+information you'll need to collect in order to encode a Multinomial
+Naive Bayes model. We now want to retrieve those pieces of information
+while streaming over a corpus. The bulk of the task will be very similar
+to the word counting excercises you've already done but you may want to
+consider a slightly different key-value record structure to efficiently
+tally counts for each class.
+
+The most challenging (interesting?) design question will be how to
+retrieve the totals (\# of documents and \# of words in documents for
+each class). Of course, counting these numbers is easy. The hard part is
+the timing: you'll need to make sure you have the counts totalled up
+\emph{before} you start estimating the class conditional probabilities
+for each word. It would be best (i.e. most scalable) if we could find a
+way to do this tallying without storing the whole vocabulary in
+memory... Use an appropriate MapReduce design pattern to implement this
+efficiently!
+
+\subsubsection{Q8 Tasks:}\label{q8-tasks}
+
+\begin{itemize}
+\item
+  \textbf{a) make a plan:} Fill in the docstrings for
+  \textbf{\texttt{NaiveBayes/train\_mapper.py}} and
+  \textbf{\texttt{NaiveBayes/train\_reducer.py}} to appropriately
+  reflect the format that each script will input/output.
+  {[}\texttt{HINT:} \emph{the input files} (\texttt{enronemail\_1h.txt}
+  \& \texttt{chineseTrain.txt}) \emph{have a prespecified format and
+  your output file should match} \texttt{NBmodel.txt} \emph{so you
+  really only have to decide on an internal format for Hadoop}{]}.
+\item
+  \textbf{b) implement it:} Complete the code in
+  \textbf{\texttt{NaiveBayes/train\_mapper.py}} and
+  \textbf{\texttt{NaiveBayes/train\_reducer.py}} so that together they
+  train a Multinomial Naive Bayes model \textbf{with no smoothing}. Make
+  sure your end result is formatted correctly (see note above). Test
+  your scripts independently and together (using
+  \texttt{chineseTrain.txt} or test input of your own devising). When
+  you are satisfied with your Python code design and run a Hadoop
+  streaming command to run your job in parallel on the
+  \textbf{chineseTrain.txt}. Confirm that your trained model matches
+  your hand calculations from Question 5.
+\item
+  \textbf{c) short response:} We saw in Question 6 that adding Laplace
+  +1 smoothing makes our classifications less sensitve to rare words.
+  However implementing this technique requires access to one additional
+  piece of information that we had not previously used in our Naive
+  Bayes training. What is that extra piece of information?
+  {[}\texttt{HINT:} see equation 13.7 in Manning, Raghavan and
+  Schutze{]}.
+\item
+  \textbf{d) short response:} There are three approaches that we could
+  take to handle the extra piece of information you identified in
+  \texttt{c}: 1) we could hard code it into our reducer (\emph{where
+  would we get it in the first place?}). Or 2) we could compute it
+  inside the reducer which would require storing some information in
+  memory (\emph{what information?}). Or 3) we could compute it in the
+  reducer without storing any bulky information in memory but then we'd
+  need some postprocessing or a second MapReduce job to complete the
+  calculation (\emph{why?}). Breifly explain what is non-ideal about
+  each of these options. BONUS: which of these options is incompatible
+  with using multiple reducers?
+\item
+  \textbf{e) code + short response:} Choose one of the 3 options above.
+  State your choice \& reasoning in the space below then use that
+  strategy to complete the code in
+  \textbf{\texttt{NaiveBayes/train\_reducer\_smooth.py}}. Test this
+  alternate reducer then write and run a Hadoop streaming job to train
+  an MNB model with smoothing on the Chinese example. Your results
+  should match the model that we provided for you above (and the
+  calculations in the textbook example). {[}\texttt{HINT:} \emph{don't
+  start from scratch with this one -\/- you can just copy over your
+  reducer code from part \texttt{b} and make the needed
+  modifications}{]}.
+\end{itemize}
+
+    \textbf{IMPORTANT NOTE:} For full credit on this question, your code
+must work with multiple reducers. {[}\texttt{HINT:}\_You will need to
+implement custom partitioning -
+\href{https://github.com/UCB-w261/main/tree/master/HelpfulResources/TotalSortGuide/_total-sort-guide-spark2.01-JAN27-2017.ipynb}{Total
+Order Sort Notebook}{]}
+
+    \subsubsection{Q8 Student Answers:}\label{q8-student-answers}
+
+\begin{quote}
+\_\_ c)\_\_ Type your answer here!
+\end{quote}
+
+\begin{quote}
+\_\_ d)\_\_ Type your answer here!
+\end{quote}
+
+\begin{quote}
+\_\_ e)\_\_ Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{The multiple reducer implementation is provided at the bottom of
+this notebook in the SUPPLEMENT section}
+
+\textbf{SOLUTIONS} \textgreater{} \_\_ c)\_\_ We need the the vocabulary
+size to add to the denominator of the conditional probabilities.
+
+\begin{quote}
+\_\_ d)\_\_ Option 1 would require doing some EDA in advance. Option 2
+would require that we store all of the partial counts for each word in
+memory because we wouldn't be able to compute the correct conditional
+probability (estimates) until the reducer has already parsed all of the
+records because only then will it know the unique word count. This
+option is incompatible with using multiple reducers. Option 3 requires
+an extra step for the same reason that Option 2 has to wait until seeing
+all the records before it can emit any of the model values -\/- we can't
+compute the partials until after we have the vocabulary count.
+\end{quote}
+
+\begin{quote}
+\_\_ e)\_\_ I'll use the Enron EDA that we've already done to get a word
+count and just hard code that for this assignment.
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} part a \PYZhy{} do your work in train\PYZus{}mapper.py and train\PYZus{}reducer.py then RUN THIS CELL AS IS}
+         \PY{o}{!}chmod a+x NaiveBayes/train\PYZus{}mapper.py
+         \PY{o}{!}chmod a+x NaiveBayes/train\PYZus{}reducer.py
+         \PY{o}{!}\PY{n+nb}{echo} \PY{l+s+s2}{\PYZdq{}=========== MAPPER DOCSTRING ============\PYZdq{}}
+         \PY{o}{!}head \PYZhy{}n \PY{l+m}{8} NaiveBayes/train\PYZus{}mapper.py \PY{p}{|} tail \PYZhy{}n \PY{l+m}{6}
+         \PY{o}{!}\PY{n+nb}{echo} \PY{l+s+s2}{\PYZdq{}=========== REDUCER DOCSTRING ============\PYZdq{}}
+         \PY{o}{!}head \PYZhy{}n \PY{l+m}{8} NaiveBayes/train\PYZus{}reducer.py \PY{p}{|} tail \PYZhy{}n \PY{l+m}{6}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=========== MAPPER DOCSTRING ============
+Mapper reads in text documents and emits word counts by class.
+INPUT:                                                    \# <--- SOLUTION --->
+    DocID \textbackslash{}t true\_class \textbackslash{}t subject \textbackslash{}t body                \# <--- SOLUTION --->
+OUTPUT:                                                   \# <--- SOLUTION --->
+    word \textbackslash{}t class0\_partialCount,class1\_partialCount       \# <--- SOLUTION --->
+    
+=========== REDUCER DOCSTRING ============
+Reducer aggregates word counts by class and emits frequencies.
+INPUT:                                                    \# <--- SOLUTION --->
+    word \textbackslash{}t class0\_partialCount,class1\_partialCount       \# <--- SOLUTION --->
+OUTPUT:                                                   \# <--- SOLUTION --->
+    WORD \textbackslash{}t ham\_count,spam\_count,P(ham|word),P(spam|word) \# <--- SOLUTION --->
+    
+
+    \end{Verbatim}
+
+    \textbf{\texttt{part\ b\ starts\ here}:} MNB \emph{without} Smoothing
+(training on Chinese Example Corpus).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} write a unit test for your mapper here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} write a unit test for your reducer here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} write a systems test for your mapper + reducer together here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} clear (and name) an output directory in HDFS for your unsmoothed chinese NB model}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} write your hadoop streaming job}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} extract your results (i.e. model) to a local file}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} print your model so that we can confirm that it matches expected results}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} write a unit test for your mapper here}
+         \PY{o}{!}cat NaiveBayes/chineseTrain.txt \PY{p}{|} NaiveBayes/train\PYZus{}mapper.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+chinese	0,1
+beijing	0,1
+chinese	0,1
+chinese	0,1
+chinese	0,1
+shanghai	0,1
+chinese	0,1
+macao	0,1
+tokyo	1,0
+japan	1,0
+chinese	1,0
+*docTotals	1,3
+*wordTotals	3,8
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} write a unit test for your reducer here}
+         \PY{o}{!}\PY{n+nb}{echo} \PYZhy{}e \PY{l+s+s2}{\PYZdq{}*docTotals	1,3\PYZbs{}n*wordTotals	3,8\PYZbs{}njapan	1,0\PYZbs{}nchinese	0,1\PYZbs{}nchinese	0,1\PYZdq{}} \PY{p}{|} NaiveBayes/train\PYZus{}reducer.py \PY{p}{|} column \PYZhy{}t
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+japan        1,0,0.3333333333333333,0.0
+chinese      0,2,0.0,0.25
+ClassPriors  1.0,3.0,0.25,0.75
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} write a systems test for your mapper + reducer together here}
+         \PY{o}{!}cat NaiveBayes/chineseTrain.txt \PY{p}{|} NaiveBayes/train\PYZus{}mapper.py \PY{p}{|} sort \PY{p}{|} NaiveBayes/train\PYZus{}reducer.py \PY{p}{|} column \PYZhy{}t
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+beijing      0,1,0.0,0.125
+chinese      1,5,0.3333333333333333,0.625
+japan        1,0,0.3333333333333333,0.0
+macao        0,1,0.0,0.125
+shanghai     0,1,0.0,0.125
+tokyo        1,0,0.3333333333333333,0.0
+ClassPriors  1.0,3.0,0.25,0.75
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} clear (and name) an output directory in HDFS for your unsmoothed chinese NB model}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/chinese\PYZhy{}train\PYZhy{}output
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rm: `/user/root/HW2/chinese-train-output': No such file or directory
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} write your hadoop streaming job}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{train\PYZus{}reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{train\PYZus{}reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{chineseTrain}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{chinese}\PY{o}{\PYZhy{}}\PY{n}{train}\PY{o}{\PYZhy{}}\PY{n}{output} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+packageJobJar: [] [/usr/jars/hadoop-streaming-2.6.0-cdh5.7.0.jar] /tmp/streamjob610127372660525015.jar tmpDir=null
+18/04/30 23:46:32 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/04/30 23:46:32 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/04/30 23:46:33 INFO mapred.FileInputFormat: Total input paths to process : 1
+18/04/30 23:46:33 INFO mapreduce.JobSubmitter: number of splits:2
+18/04/30 23:46:33 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1525015259038\_0012
+18/04/30 23:46:34 INFO impl.YarnClientImpl: Submitted application application\_1525015259038\_0012
+18/04/30 23:46:34 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application\_1525015259038\_0012/
+18/04/30 23:46:34 INFO mapreduce.Job: Running job: job\_1525015259038\_0012
+18/04/30 23:46:42 INFO mapreduce.Job: Job job\_1525015259038\_0012 running in uber mode : false
+18/04/30 23:46:42 INFO mapreduce.Job:  map 0\% reduce 0\%
+18/04/30 23:46:49 INFO mapreduce.Job:  map 50\% reduce 0\%
+18/04/30 23:46:50 INFO mapreduce.Job:  map 100\% reduce 0\%
+18/04/30 23:46:58 INFO mapreduce.Job:  map 100\% reduce 100\%
+18/04/30 23:46:58 INFO mapreduce.Job: Job job\_1525015259038\_0012 completed successfully
+18/04/30 23:46:58 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=225
+		FILE: Number of bytes written=352481
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=387
+		HDFS: Number of bytes written=198
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=11495
+		Total time spent by all reduces in occupied slots (ms)=5382
+		Total time spent by all map tasks (ms)=11495
+		Total time spent by all reduce tasks (ms)=5382
+		Total vcore-seconds taken by all map tasks=11495
+		Total vcore-seconds taken by all reduce tasks=5382
+		Total megabyte-seconds taken by all map tasks=11770880
+		Total megabyte-seconds taken by all reduce tasks=5511168
+	Map-Reduce Framework
+		Map input records=4
+		Map output records=15
+		Map output bytes=189
+		Map output materialized bytes=231
+		Input split bytes=228
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=8
+		Reduce shuffle bytes=231
+		Reduce input records=15
+		Reduce output records=7
+		Spilled Records=30
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=96
+		CPU time spent (ms)=3010
+		Physical memory (bytes) snapshot=722141184
+		Virtual memory (bytes) snapshot=4093337600
+		Total committed heap usage (bytes)=575143936
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=159
+	File Output Format Counters 
+		Bytes Written=198
+18/04/30 23:46:58 INFO streaming.StreamJob: Output directory: /user/root/HW2/chinese-train-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} extract your results (i.e. model) to a local file}
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/chinese\PYZhy{}train\PYZhy{}output/part\PYZhy{}0000* \PYZgt{} NaiveBayes/chineseModelUnsmoothed.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{} print your model so that we can confirm that it matches expected results}
+         \PY{o}{!}cat NaiveBayes/chineseModelUnsmoothed.txt \PY{p}{|} column \PYZhy{}t
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+beijing      0,1,0.0,0.125
+chinese      1,5,0.3333333333333333,0.625
+japan        1,0,0.3333333333333333,0.0
+macao        0,1,0.0,0.125
+shanghai     0,1,0.0,0.125
+tokyo        1,0,0.3333333333333333,0.0
+ClassPriors  1.0,3.0,0.25,0.75
+
+    \end{Verbatim}
+
+    \textbf{\texttt{part\ e\ starts\ here}:} MNB \emph{with} Smoothing
+(training on Chinese Example Corpus).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} write a unit test for your NEW reducer here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} write a systems test for your mapper + reducer together here}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} clear (and name) an output directory in HDFS for your SMOOTHED chinese NB model}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} write your hadoop streaming job}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} extract your results (i.e. model) to a local file}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} write a unit test for your NEW reducer here (NOTE, need to uncomment V in reducer code)}
+         \PY{o}{!}\PY{n+nb}{echo} \PYZhy{}e \PY{l+s+s2}{\PYZdq{}*docTotals	1,5\PYZbs{}n*wordTotals	4,4\PYZbs{}njapan	1,0\PYZbs{}nchinese	0,1\PYZbs{}nchinese	0,1\PYZdq{}} \PY{p}{|} NaiveBayes/train\PYZus{}reducer\PYZus{}smooth.py \PY{p}{|} column \PYZhy{}t
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+japan        1,0,0.2,0.1
+chinese      0,2,0.1,0.3
+ClassPriors  1.0,5.0,0.16666666666666666,0.8333333333333334
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} write a systems test for your mapper + reducer together here}
+         \PY{o}{!}cat NaiveBayes/chineseTrain.txt \PY{p}{|} NaiveBayes/train\PYZus{}mapper.py \PY{p}{|} sort \PY{p}{|} NaiveBayes/train\PYZus{}reducer\PYZus{}smooth.py \PY{p}{|} column \PYZhy{}t
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+beijing      0,1,0.1111111111111111,0.14285714285714285
+chinese      1,5,0.2222222222222222,0.42857142857142855
+japan        1,0,0.2222222222222222,0.07142857142857142
+macao        0,1,0.1111111111111111,0.14285714285714285
+shanghai     0,1,0.1111111111111111,0.14285714285714285
+tokyo        1,0,0.2222222222222222,0.07142857142857142
+ClassPriors  1.0,3.0,0.25,0.75
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} clear (and name) an output directory in HDFS for your SMOOTHED chinese NB model}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/chinese\PYZhy{}train\PYZhy{}output
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Deleted /user/root/HW2/chinese-train-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} write your hadoop streaming job}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{train\PYZus{}reducer\PYZus{}smooth}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{train\PYZus{}reducer\PYZus{}smooth}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{chineseTrain}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{chinese}\PY{o}{\PYZhy{}}\PY{n}{train}\PY{o}{\PYZhy{}}\PY{n}{output} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+packageJobJar: [] [/usr/jars/hadoop-streaming-2.6.0-cdh5.7.0.jar] /tmp/streamjob4533128601854879383.jar tmpDir=null
+18/05/01 00:06:59 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:06:59 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:07:00 INFO mapred.FileInputFormat: Total input paths to process : 1
+18/05/01 00:07:00 INFO mapreduce.JobSubmitter: number of splits:2
+18/05/01 00:07:00 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1525015259038\_0014
+18/05/01 00:07:00 INFO impl.YarnClientImpl: Submitted application application\_1525015259038\_0014
+18/05/01 00:07:00 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application\_1525015259038\_0014/
+18/05/01 00:07:00 INFO mapreduce.Job: Running job: job\_1525015259038\_0014
+18/05/01 00:07:09 INFO mapreduce.Job: Job job\_1525015259038\_0014 running in uber mode : false
+18/05/01 00:07:09 INFO mapreduce.Job:  map 0\% reduce 0\%
+18/05/01 00:07:16 INFO mapreduce.Job:  map 50\% reduce 0\%
+18/05/01 00:07:17 INFO mapreduce.Job:  map 100\% reduce 0\%
+18/05/01 00:07:23 INFO mapreduce.Job:  map 100\% reduce 100\%
+18/05/01 00:07:23 INFO mapreduce.Job: Job job\_1525015259038\_0014 completed successfully
+18/05/01 00:07:23 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=225
+		FILE: Number of bytes written=352589
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=387
+		HDFS: Number of bytes written=331
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=11195
+		Total time spent by all reduces in occupied slots (ms)=4178
+		Total time spent by all map tasks (ms)=11195
+		Total time spent by all reduce tasks (ms)=4178
+		Total vcore-seconds taken by all map tasks=11195
+		Total vcore-seconds taken by all reduce tasks=4178
+		Total megabyte-seconds taken by all map tasks=11463680
+		Total megabyte-seconds taken by all reduce tasks=4278272
+	Map-Reduce Framework
+		Map input records=4
+		Map output records=15
+		Map output bytes=189
+		Map output materialized bytes=231
+		Input split bytes=228
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=8
+		Reduce shuffle bytes=231
+		Reduce input records=15
+		Reduce output records=7
+		Spilled Records=30
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=111
+		CPU time spent (ms)=2770
+		Physical memory (bytes) snapshot=760750080
+		Virtual memory (bytes) snapshot=4102082560
+		Total committed heap usage (bytes)=575668224
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=159
+	File Output Format Counters 
+		Bytes Written=331
+18/05/01 00:07:23 INFO streaming.StreamJob: Output directory: /user/root/HW2/chinese-train-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} extract your results (i.e. model) to a local file}
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/chinese\PYZhy{}train\PYZhy{}output/part\PYZhy{}0000* \PYZgt{} NaiveBayes/chineseModelSmoothed.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} print your model so that we can confirm that it matches expected results}
+         \PY{o}{!}cat NaiveBayes/chineseModelSmoothed.txt \PY{p}{|} column \PYZhy{}t
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+beijing      0,1,0.1111111111111111,0.14285714285714285
+chinese      1,5,0.2222222222222222,0.42857142857142855
+japan        1,0,0.2222222222222222,0.07142857142857142
+macao        0,1,0.1111111111111111,0.14285714285714285
+shanghai     0,1,0.1111111111111111,0.14285714285714285
+tokyo        1,0,0.2222222222222222,0.07142857142857142
+ClassPriors  1.0,3.0,0.25,0.75
+
+    \end{Verbatim}
+
+    \section{Question 9: Enron Ham/Spam NB Classifier \&
+Results.}\label{question-9-enron-hamspam-nb-classifier-results.}
+
+Fantastic work. We're finally ready to perform Spam Classification on
+the Enron Corpus. In this question you'll run the analysis you've
+developed, report its performance, and draw some conclusions.
+
+\subsubsection{Q9 Tasks:}\label{q9-tasks}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{a) train/test split:} Run the provided code to split our Enron
+  file into a training set and testing set then load them into HDFS.
+\end{itemize}
+
+{[}\texttt{NOTE:} \emph{Make sure you re calculate the vocab size for
+just the training set!}{]}
+
+\begin{itemize}
+\item
+  \textbf{b) train 2 models:} Write Hadoop Streaming jobs to train MNB
+  Models on the training set with and without smoothing. Save your
+  models to local files at
+  \textbf{\texttt{NaiveBayes/Unsmoothed/NBmodel.txt}} and
+  \textbf{\texttt{NaiveBayes/Smoothed/NBmodel.txt}}. {[}\texttt{NOTE:}
+  \emph{This naming is important because we wrote our classification
+  task so that it expects a file of that name... if this inelegance
+  frustrates you there is an alternative that would involve a few
+  adjustments to your code
+  \href{http://www.tnoda.com/blog/2013-11-23}{read more about it
+  here}.}{]} Finally run the checks that we provide to confirm that your
+  results are correct.
+\item
+  \textbf{c) code:} Recall that we designed our classification job with
+  just a mapper. An efficient way to report the performance of our
+  models would be to simply add a reducer phase to this job and compute
+  precision and recall right there. Complete the code in
+  \textbf{\texttt{NaiveBayes/evaluation\_reducer.py}} and then write
+  Hadoop jobs to evaluate your two models on the test set. Report their
+  performance side by side. {[}\texttt{NOTE:} if you need a refresher on
+  precision, recall and F1-score
+  \href{https://en.wikipedia.org/wiki/F1_score}{Wikipedia} is a good
+  resource.{]}
+\item
+  \textbf{d) short response:} Compare the performance of your two
+  models. What do you notice about the unsmoothed model's predictions?
+  Can you guess why this is happening? Which evaluation measure do you
+  think is most relevant in our use case? {[}\texttt{NOTE:} \emph{Feel
+  free to answer using your common sense but if you want more
+  information on evaluating the classification task checkout}
+  \href{https://tryolabs.com/blog/2013/03/25/why-accuracy-alone-bad-measure-classification-tasks-and-what-we-can-do-about-it/}{this
+  blogpost} or
+  \href{http://www.flinders.edu.au/science_engineering/fms/School-CSEM/publications/tech_reps-research_artfcts/TRRA_2007.pdf}{this
+  paper}{]}
+\item
+  \textbf{e) code + short response:} Let's look at the top ten words
+  with the highest conditional probability in \texttt{Spam} and in
+  \texttt{Ham}. We'll do this by writing a Hadoop job that sorts the
+  model file (\texttt{NaiveBayes/Smoothed/NBmodel.py}). Normally we'd
+  have to run two jobs -\/- one that sorts on \(P(word|ham)\) and
+  another that sorts on \(P(word|spam)\). However if we slighly modify
+  the data format in the model file then we can get the top words in
+  each class with just one job. We've written a mapper that will do just
+  this for you. Read through
+  \textbf{\texttt{NaiveBayes/model\_sort\_mapper.py}} and then briefly
+  explain how this mapper will allow us to partition and sort our model
+  file. Write a Hadoop job that uses our mapper and \texttt{/bin/cat}
+  for a reducer to partition and sort. Print out the top 10 words in
+  each class (where 'top' == highest conditional
+  probability).{[}\texttt{HINT:} \emph{this should remind you a lot of
+  what we did in Question 6.}{]}
+\item
+  \textbf{f) short response:} What do you notice about the 'top words'
+  we printed in \texttt{e}? How would increasing the smoothing parameter
+  'k' affect the probabilities for the top words that you identified for
+  'e'. How would they affect the probabilities of words that occur much
+  more in one class than another? In summary, how does the smoothing
+  parameter 'k' affect the bias and the variance of our model.
+  {[}\texttt{NOTE:} \emph{you do not need to code anything for this
+  task, but if you are struggling with it you could try changing 'k' and
+  see what happens to the test set. We don't recommend doing this
+  exploration with the Enron data because it will be harder to see the
+  impact with such a big vocabulary}{]}
+\end{itemize}
+
+    \subsubsection{Q9 Student Answers:}\label{q9-student-answers}
+
+\begin{quote}
+\textbf{d)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{e)} Type your answer here!
+\end{quote}
+
+\begin{quote}
+\textbf{f)} Type your answer here!
+\end{quote}
+
+    \subsubsection{\textless{}-\/-\/- SOLUTION
+-\/-\/-\textgreater{}}\label{solution----}
+
+\textbf{SOLUTIONS} \textgreater{} \textbf{d)} The unsmoothed model seems
+to be always predicting the negative class so its accuracy is simply the
+proportion of non-spam emails in the test set (9/20). One reason this
+could happen is if the Class Prior for the negative class is larger than
+the Class Prior for the postive class and if there are a lot of words
+with 0 probability in one or the other class. The Smoothed model
+performs better and since we do have a mixture of predictions here we
+can look at the F1-score which reflects both accuracy and recall. In
+application, when developing a Spam filter we'd probably want to also
+look at precision and recall independently to understand whether our
+filter is more likely to accidentally allow a spam email to arrive in
+the inbox or more likely to wrongly sequester a real email.
+
+\begin{quote}
+\textbf{e)} This mapper adds two new fields to our model file: the first
+is the name of the class with the higher conditional probability. We can
+use this field to partition our file. The second field is the
+conditional probability of the max class... although this information
+was already part of the payload by putting it in one field we can now
+sort on both classes simultaneously and trust that our top 10 get sorted
+on the appropriate value.
+\end{quote}
+
+\begin{quote}
+\textbf{f)} Increasing the smoothing parameter k will generally cause
+the conditional probabilities in each class to be closer to each other.
+This will have little affect on words whose probabilities were already
+very similar in each class but a larger effect on words that occcured
+much more in one class than the other. In other words increasing k
+reduces the variance of our model. Assuming that some of that variance
+we've learned is idiosynchratic to our training set, this should make
+our model more generalizable. However there is risk that doing so we
+will increase the bias of our model because as k increases our
+predictions are more likely to reflect the Class Priors.
+\end{quote}
+
+    \textbf{Test/Train split}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} part a \PYZhy{} test/train split (RUN THIS CELL AS IS)}
+         \PY{o}{!}head \PYZhy{}n \PY{l+m}{80} data/enronemail\PYZus{}1h.txt \PYZgt{} data/enron\PYZus{}train.txt
+         \PY{o}{!}tail \PYZhy{}n \PY{l+m}{20} data/enronemail\PYZus{}1h.txt \PYZgt{} data/enron\PYZus{}test.txt
+         \PY{o}{!}hdfs dfs \PYZhy{}copyFromLocal data/enron\PYZus{}train.txt \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}
+         \PY{o}{!}hdfs dfs \PYZhy{}copyFromLocal data/enron\PYZus{}test.txt \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \textbf{Training} (Enron MNB Model \emph{without smoothing} )
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{}  Unsmoothed model (FILL IN THE MISSING CODE BELOW)}
+        
+        \PY{c+c1}{\PYZsh{} clear the output directory}
+        \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/enron\PYZhy{}model
+        
+        \PY{c+c1}{\PYZsh{} hadoop command}
+        \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+        
+        
+        
+        
+        
+        
+        
+        
+        \PY{c+c1}{\PYZsh{} save the model locally}
+        \PY{o}{!}mkdir NaiveBayes/Unsmoothed
+        \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/enron\PYZhy{}model/part\PYZhy{}000* \PYZgt{} NaiveBayes/Unsmoothed/NBmodel.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{}  Unsmoothed model (FILL IN THE MISSING CODE BELOW)}
+         
+         \PY{c+c1}{\PYZsh{} clear the output directory}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/enron\PYZhy{}model
+         
+         \PY{c+c1}{\PYZsh{} hadoop command}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{train\PYZus{}reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{train\PYZus{}reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron\PYZus{}train}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron}\PY{o}{\PYZhy{}}\PY{n}{model} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+             
+         \PY{c+c1}{\PYZsh{} save the model locally}
+         \PY{o}{!}mkdir NaiveBayes/Unsmoothed
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/enron\PYZhy{}model/part\PYZhy{}000* \PYZgt{} NaiveBayes/Unsmoothed/NBmodel.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rm: `/user/root/HW2/enron-model': No such file or directory
+packageJobJar: [] [/usr/jars/hadoop-streaming-2.6.0-cdh5.7.0.jar] /tmp/streamjob2669663931072049286.jar tmpDir=null
+18/05/01 00:12:53 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:12:54 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:12:55 INFO mapred.FileInputFormat: Total input paths to process : 1
+18/05/01 00:12:55 INFO mapreduce.JobSubmitter: number of splits:2
+18/05/01 00:12:55 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1525015259038\_0015
+18/05/01 00:12:55 INFO impl.YarnClientImpl: Submitted application application\_1525015259038\_0015
+18/05/01 00:12:55 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application\_1525015259038\_0015/
+18/05/01 00:12:55 INFO mapreduce.Job: Running job: job\_1525015259038\_0015
+18/05/01 00:13:03 INFO mapreduce.Job: Job job\_1525015259038\_0015 running in uber mode : false
+18/05/01 00:13:03 INFO mapreduce.Job:  map 0\% reduce 0\%
+18/05/01 00:13:12 INFO mapreduce.Job:  map 50\% reduce 0\%
+18/05/01 00:13:13 INFO mapreduce.Job:  map 100\% reduce 0\%
+18/05/01 00:13:19 INFO mapreduce.Job:  map 100\% reduce 100\%
+18/05/01 00:13:20 INFO mapreduce.Job: Job job\_1525015259038\_0015 completed successfully
+18/05/01 00:13:20 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=293420
+		FILE: Number of bytes written=938844
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=167388
+		HDFS: Number of bytes written=186927
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=12131
+		Total time spent by all reduces in occupied slots (ms)=4694
+		Total time spent by all map tasks (ms)=12131
+		Total time spent by all reduce tasks (ms)=4694
+		Total vcore-seconds taken by all map tasks=12131
+		Total vcore-seconds taken by all reduce tasks=4694
+		Total megabyte-seconds taken by all map tasks=12422144
+		Total megabyte-seconds taken by all reduce tasks=4806656
+	Map-Reduce Framework
+		Map input records=80
+		Map output records=25071
+		Map output bytes=243272
+		Map output materialized bytes=293426
+		Input split bytes=226
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=4557
+		Reduce shuffle bytes=293426
+		Reduce input records=25071
+		Reduce output records=4556
+		Spilled Records=50142
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=95
+		CPU time spent (ms)=5530
+		Physical memory (bytes) snapshot=763322368
+		Virtual memory (bytes) snapshot=4084998144
+		Total committed heap usage (bytes)=575668224
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=167162
+	File Output Format Counters 
+		Bytes Written=186927
+18/05/01 00:13:20 INFO streaming.StreamJob: Output directory: /user/root/HW2/enron-model
+mkdir: cannot create directory `NaiveBayes/Unsmoothed': File exists
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} check your UNSMOOTHED model results (RUN THIS CELL AS IS)}
+         \PY{o}{!}grep assistance NaiveBayes/Unsmoothed/NBmodel.txt
+         \PY{c+c1}{\PYZsh{} EXPECTED OUTPUT: assistance	2,4,0.000172547666293,0.000296823983378}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+assistance	2,4,0.0001725476662928134,0.00029682398337785694
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} check your UNSMOOTHED model results (RUN THIS CELL AS IS)}
+         \PY{o}{!}grep money NaiveBayes/Unsmoothed/NBmodel.txt
+         \PY{c+c1}{\PYZsh{} EXPECTED OUTPUT: money	1,22,8.62738331464e\PYZhy{}05,0.00163253190858}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+money	1,22,8.62738331464067e-05,0.001632531908578213
+
+    \end{Verbatim}
+
+    \textbf{Training} (Enron MNB Model \emph{with Laplace +1 smoothing} )
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{}  Smoothed model (FILL IN THE MISSING CODE BELOW)}
+        
+        \PY{c+c1}{\PYZsh{} clear the output directory}
+        \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/smooth\PYZhy{}model
+        
+        \PY{c+c1}{\PYZsh{} hadoop command}
+        \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+        
+        
+        
+        
+        
+        
+        
+        \PY{c+c1}{\PYZsh{} save the model locally}
+        \PY{o}{!}mkdir NaiveBayes/Unsmoothed
+        \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/smooth\PYZhy{}model/part\PYZhy{}000* \PYZgt{} NaiveBayes/Smoothed/NBmodel.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part b \PYZhy{}  Smoothed model (FILL IN THE MISSING CODE BELOW)}
+         
+         \PY{c+c1}{\PYZsh{} clear the output directory}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/smooth\PYZhy{}model
+         
+         \PY{c+c1}{\PYZsh{} hadoop command}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{train\PYZus{}reducer\PYZus{}smooth}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{train\PYZus{}reducer\PYZus{}smooth}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron\PYZus{}train}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{smooth}\PY{o}{\PYZhy{}}\PY{n}{model} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+             
+         \PY{c+c1}{\PYZsh{} save the model locally}
+         \PY{o}{!}mkdir NaiveBayes/Smoothed
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/smooth\PYZhy{}model/part\PYZhy{}000* \PYZgt{} NaiveBayes/Smoothed/NBmodel.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rm: `/user/root/HW2/smooth-model': No such file or directory
+packageJobJar: [] [/usr/jars/hadoop-streaming-2.6.0-cdh5.7.0.jar] /tmp/streamjob3800242108333965252.jar tmpDir=null
+18/05/01 00:15:11 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:15:11 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:15:12 INFO mapred.FileInputFormat: Total input paths to process : 1
+18/05/01 00:15:12 INFO mapreduce.JobSubmitter: number of splits:2
+18/05/01 00:15:12 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1525015259038\_0016
+18/05/01 00:15:13 INFO impl.YarnClientImpl: Submitted application application\_1525015259038\_0016
+18/05/01 00:15:13 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application\_1525015259038\_0016/
+18/05/01 00:15:13 INFO mapreduce.Job: Running job: job\_1525015259038\_0016
+18/05/01 00:15:20 INFO mapreduce.Job: Job job\_1525015259038\_0016 running in uber mode : false
+18/05/01 00:15:20 INFO mapreduce.Job:  map 0\% reduce 0\%
+18/05/01 00:15:28 INFO mapreduce.Job:  map 50\% reduce 0\%
+18/05/01 00:15:29 INFO mapreduce.Job:  map 100\% reduce 0\%
+18/05/01 00:15:35 INFO mapreduce.Job:  map 100\% reduce 100\%
+18/05/01 00:15:35 INFO mapreduce.Job: Job job\_1525015259038\_0016 completed successfully
+18/05/01 00:15:35 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=293420
+		FILE: Number of bytes written=938952
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=167388
+		HDFS: Number of bytes written=254176
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=11416
+		Total time spent by all reduces in occupied slots (ms)=4646
+		Total time spent by all map tasks (ms)=11416
+		Total time spent by all reduce tasks (ms)=4646
+		Total vcore-seconds taken by all map tasks=11416
+		Total vcore-seconds taken by all reduce tasks=4646
+		Total megabyte-seconds taken by all map tasks=11689984
+		Total megabyte-seconds taken by all reduce tasks=4757504
+	Map-Reduce Framework
+		Map input records=80
+		Map output records=25071
+		Map output bytes=243272
+		Map output materialized bytes=293426
+		Input split bytes=226
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=4557
+		Reduce shuffle bytes=293426
+		Reduce input records=25071
+		Reduce output records=4556
+		Spilled Records=50142
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=114
+		CPU time spent (ms)=5190
+		Physical memory (bytes) snapshot=760520704
+		Virtual memory (bytes) snapshot=4098621440
+		Total committed heap usage (bytes)=578813952
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=167162
+	File Output Format Counters 
+		Bytes Written=254176
+18/05/01 00:15:35 INFO streaming.StreamJob: Output directory: /user/root/HW2/smooth-model
+mkdir: cannot create directory `NaiveBayes/Smoothed': File exists
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} check your SMOOTHED model results (RUN THIS CELL AS IS)}
+         \PY{o}{!}grep assistance NaiveBayes/Smoothed/NBmodel.txt
+         \PY{c+c1}{\PYZsh{} EXPECTED OUTPUT: assistance	2,4,0.000185804533631,0.000277300205202}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+assistance	2,4,0.0001858045336306206,0.00027730020520215184
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{} part b \PYZhy{} check your SMOOTHED model results (RUN THIS CELL AS IS)}
+         \PY{o}{!}grep money NaiveBayes/Smoothed/NBmodel.txt
+         \PY{c+c1}{\PYZsh{} EXPECTED OUTPUT: money	1,22,0.000123869689087,0.00127558094393}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+money	1,22,0.0001238696890870804,0.0012755809439298986
+
+    \end{Verbatim}
+
+    \textbf{Evaluation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{} part c \PYZhy{} write your code in NaiveBayes/evaluation\PYZus{}reducer.py then RUN THIS}
+         \PY{o}{!}chmod a+x NaiveBayes/evaluation\PYZus{}reducer.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{} part c \PYZhy{} unit test your evaluation job on the chinese model (RUN THIS CELL AS IS)}
+         \PY{o}{!}cat NaiveBayes/chineseTest.txt \PY{p}{|} NaiveBayes/classify\PYZus{}mapper.py 
+         \PY{o}{!}cat NaiveBayes/chineseTest.txt \PY{p}{|} NaiveBayes/classify\PYZus{}mapper.py \PY{p}{|} NaiveBayes/evaluation\PYZus{}reducer.py
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+d5	1	-8.90668134500626	-8.10769031284611	1
+d6	1	-5.780743515794329	-4.179502370564408	1
+d7	0	-6.591673732011658	-7.511706880737811	0
+d8	0	-4.394449154674438	-5.565796731681498	0
+d5	1	-8.90668134500626	-8.10769031284611	 True
+d6	1	-5.780743515794329	-4.179502370564408	 True
+d7	0	-6.591673732011658	-7.511706880737811	 True
+d8	0	-4.394449154674438	-5.565796731681498	 True
+Total \# Documents:	4.0
+True Positives:	2.0
+True Negatives:	2.0
+False Positives:	0.0
+False Negatives:	0.0
+Accuracy	1.0
+Precision	1.0
+Recall	1.0
+F-Score	1.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part c \PYZhy{} Evaluate the UNSMOOTHED Model Here (FILL IN THE MISSING CODE)}
+        
+        \PY{c+c1}{\PYZsh{} clear output directory}
+        
+        \PY{c+c1}{\PYZsh{} hadoop job}
+        
+        
+        
+        
+        
+        \PY{c+c1}{\PYZsh{} retrieve results locally}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part c \PYZhy{} Evaluate the UNSMOOTHED Model Here (FILL IN THE MISSING CODE)}
+         
+         \PY{c+c1}{\PYZsh{} clear output directory}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/nb\PYZhy{}results
+         
+         \PY{c+c1}{\PYZsh{} hadoop job}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{classify\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{evaluation\PYZus{}reducer}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{Unsmoothed}\PY{o}{/}\PY{n}{NBmodel}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{classify\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{evaluation\PYZus{}reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron\PYZus{}test}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{nb}\PY{o}{\PYZhy{}}\PY{n}{results} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+         
+         \PY{c+c1}{\PYZsh{} retrieve results locally}
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/nb\PYZhy{}results/part\PYZhy{}000* \PYZgt{} NaiveBayes/Unsmoothed/results.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rm: `/user/root/HW2/nb-results': No such file or directory
+packageJobJar: [] [/usr/jars/hadoop-streaming-2.6.0-cdh5.7.0.jar] /tmp/streamjob2806119736089665419.jar tmpDir=null
+18/05/01 00:19:14 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:19:14 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:19:16 INFO mapred.FileInputFormat: Total input paths to process : 1
+18/05/01 00:19:16 INFO mapreduce.JobSubmitter: number of splits:2
+18/05/01 00:19:16 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1525015259038\_0017
+18/05/01 00:19:16 INFO impl.YarnClientImpl: Submitted application application\_1525015259038\_0017
+18/05/01 00:19:16 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application\_1525015259038\_0017/
+18/05/01 00:19:16 INFO mapreduce.Job: Running job: job\_1525015259038\_0017
+18/05/01 00:19:25 INFO mapreduce.Job: Job job\_1525015259038\_0017 running in uber mode : false
+18/05/01 00:19:25 INFO mapreduce.Job:  map 0\% reduce 0\%
+18/05/01 00:19:34 INFO mapreduce.Job:  map 100\% reduce 0\%
+18/05/01 00:19:41 INFO mapreduce.Job:  map 100\% reduce 100\%
+18/05/01 00:19:41 INFO mapreduce.Job: Job job\_1525015259038\_0017 completed successfully
+18/05/01 00:19:41 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=818
+		FILE: Number of bytes written=354849
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=49909
+		HDFS: Number of bytes written=1051
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=11764
+		Total time spent by all reduces in occupied slots (ms)=4540
+		Total time spent by all map tasks (ms)=11764
+		Total time spent by all reduce tasks (ms)=4540
+		Total vcore-seconds taken by all map tasks=11764
+		Total vcore-seconds taken by all reduce tasks=4540
+		Total megabyte-seconds taken by all map tasks=12046336
+		Total megabyte-seconds taken by all reduce tasks=4648960
+	Map-Reduce Framework
+		Map input records=20
+		Map output records=20
+		Map output bytes=772
+		Map output materialized bytes=824
+		Input split bytes=224
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=20
+		Reduce shuffle bytes=824
+		Reduce input records=20
+		Reduce output records=29
+		Spilled Records=40
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=102
+		CPU time spent (ms)=2700
+		Physical memory (bytes) snapshot=764764160
+		Virtual memory (bytes) snapshot=4095881216
+		Total committed heap usage (bytes)=575668224
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=49685
+	File Output Format Counters 
+		Bytes Written=1051
+18/05/01 00:19:41 INFO streaming.StreamJob: Output directory: /user/root/HW2/nb-results
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part c \PYZhy{} Evaluate the SMOOTHED Model Here (FILL IN THE MISSING CODE)}
+        
+        \PY{c+c1}{\PYZsh{} clear output directory}
+        
+        \PY{c+c1}{\PYZsh{} hadoop job}
+        
+        
+        
+        
+        
+        \PY{c+c1}{\PYZsh{} retrieve results locally}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part c \PYZhy{} Evaluate the SMOOTHED Model Here (FILL IN THE MISSING CODE)}
+         
+         \PY{c+c1}{\PYZsh{} clear output directory}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/nb\PYZhy{}smoothed\PYZhy{}results
+         
+         \PY{c+c1}{\PYZsh{} hadoop job}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{classify\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{evaluation\PYZus{}reducer}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{Smoothed}\PY{o}{/}\PY{n}{NBmodel}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{classify\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{evaluation\PYZus{}reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron\PYZus{}test}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{nb}\PY{o}{\PYZhy{}}\PY{n}{smoothed}\PY{o}{\PYZhy{}}\PY{n}{results} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+         
+         \PY{c+c1}{\PYZsh{} retrieve results locally}
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/nb\PYZhy{}smoothed\PYZhy{}results/part\PYZhy{}000* \PYZgt{} NaiveBayes/Smoothed/results.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rm: `/user/root/HW2/nb-smoothed-results': No such file or directory
+packageJobJar: [] [/usr/jars/hadoop-streaming-2.6.0-cdh5.7.0.jar] /tmp/streamjob602071036275172994.jar tmpDir=null
+18/05/01 00:20:36 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:20:36 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:20:37 INFO mapred.FileInputFormat: Total input paths to process : 1
+18/05/01 00:20:37 INFO mapreduce.JobSubmitter: number of splits:2
+18/05/01 00:20:37 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1525015259038\_0018
+18/05/01 00:20:37 INFO impl.YarnClientImpl: Submitted application application\_1525015259038\_0018
+18/05/01 00:20:37 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application\_1525015259038\_0018/
+18/05/01 00:20:37 INFO mapreduce.Job: Running job: job\_1525015259038\_0018
+18/05/01 00:20:45 INFO mapreduce.Job: Job job\_1525015259038\_0018 running in uber mode : false
+18/05/01 00:20:45 INFO mapreduce.Job:  map 0\% reduce 0\%
+18/05/01 00:20:53 INFO mapreduce.Job:  map 50\% reduce 0\%
+18/05/01 00:20:54 INFO mapreduce.Job:  map 100\% reduce 0\%
+18/05/01 00:21:01 INFO mapreduce.Job:  map 100\% reduce 100\%
+18/05/01 00:21:02 INFO mapreduce.Job: Job job\_1525015259038\_0018 completed successfully
+18/05/01 00:21:02 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=1345
+		FILE: Number of bytes written=355921
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=49909
+		HDFS: Number of bytes written=1556
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=11743
+		Total time spent by all reduces in occupied slots (ms)=5369
+		Total time spent by all map tasks (ms)=11743
+		Total time spent by all reduce tasks (ms)=5369
+		Total vcore-seconds taken by all map tasks=11743
+		Total vcore-seconds taken by all reduce tasks=5369
+		Total megabyte-seconds taken by all map tasks=12024832
+		Total megabyte-seconds taken by all reduce tasks=5497856
+	Map-Reduce Framework
+		Map input records=20
+		Map output records=20
+		Map output bytes=1299
+		Map output materialized bytes=1351
+		Input split bytes=224
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=20
+		Reduce shuffle bytes=1351
+		Reduce input records=20
+		Reduce output records=29
+		Spilled Records=40
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=92
+		CPU time spent (ms)=3070
+		Physical memory (bytes) snapshot=754528256
+		Virtual memory (bytes) snapshot=4103208960
+		Total committed heap usage (bytes)=572522496
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=49685
+	File Output Format Counters 
+		Bytes Written=1556
+18/05/01 00:21:02 INFO streaming.StreamJob: Output directory: /user/root/HW2/nb-smoothed-results
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{} part c \PYZhy{} display results }
+         \PY{c+c1}{\PYZsh{} NOTE: feel free to modify the tail commands to match the format of your results file}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=========== UNSMOOTHED MODEL ============}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{!}tail \PYZhy{}n \PY{l+m}{9} NaiveBayes/Unsmoothed/results.txt
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=========== SMOOTHED MODEL ============}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{!}tail \PYZhy{}n \PY{l+m}{9} NaiveBayes/Smoothed/results.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=========== UNSMOOTHED MODEL ============
+Total \# Documents:	20.0
+True Positives:	1.0
+True Negatives:	9.0
+False Positives:	0.0
+False Negatives:	10.0
+Accuracy	0.5
+Precision	1.0
+Recall	0.09090909090909091
+F-Score	0.16666666666666669
+=========== SMOOTHED MODEL ============
+Total \# Documents:	20.0
+True Positives:	11.0
+True Negatives:	6.0
+False Positives:	3.0
+False Negatives:	0.0
+Accuracy	0.85
+Precision	0.7857142857142857
+Recall	1.0
+F-Score	0.88
+
+    \end{Verbatim}
+
+    \textbf{\texttt{EXPECTED\ RESULTS:}}
+
+Unsmoothed Model
+
+Smoothed Model
+
+\textbf{\texttt{NOTE:}} \emph{Don't be too disappointed if these seem
+low to you. We've trained and tested on a very very small corpus...
+bigger datasets coming soon!}
+
+\textbf{\texttt{part\ e\ starts\ here:}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} write your Hadoop job here (sort smoothed model on P(word|class))}
+        
+        \PY{c+c1}{\PYZsh{} clear output directory}
+        
+        \PY{c+c1}{\PYZsh{} hadoop job}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} part e \PYZhy{} print top words in each class}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} write your Hadoop job here (sort smoothed model on P(word|class))}
+         
+         \PY{c+c1}{\PYZsh{} clear output directory}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/model\PYZhy{}sort\PYZhy{}output
+         \PY{c+c1}{\PYZsh{} hadoop job}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{stream}\PY{o}{.}\PY{n}{num}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{output}\PY{o}{.}\PY{n}{key}\PY{o}{.}\PY{n}{fields}\PY{o}{=}\PY{l+m+mi}{4} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{job}\PY{o}{.}\PY{n}{output}\PY{o}{.}\PY{n}{key}\PY{o}{.}\PY{n}{comparator}\PY{o}{.}\PY{n}{class}\PY{o}{=}\PY{n}{org}\PY{o}{.}\PY{n}{apache}\PY{o}{.}\PY{n}{hadoop}\PY{o}{.}\PY{n}{mapred}\PY{o}{.}\PY{n}{lib}\PY{o}{.}\PY{n}{KeyFieldBasedComparator} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{partition}\PY{o}{.}\PY{n}{keycomparator}\PY{o}{.}\PY{n}{options}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}k4,4nr}\PY{l+s+s2}{\PYZdq{}} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{partition}\PY{o}{.}\PY{n}{keypartitioner}\PY{o}{.}\PY{n}{options}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}k3,3}\PY{l+s+s2}{\PYZdq{}} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{model\PYZus{}sort\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{model\PYZus{}sort\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{smooth}\PY{o}{\PYZhy{}}\PY{n}{model} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{model}\PY{o}{\PYZhy{}}\PY{n}{sort}\PY{o}{\PYZhy{}}\PY{n}{output} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{partitioner} \PY{n}{org}\PY{o}{.}\PY{n}{apache}\PY{o}{.}\PY{n}{hadoop}\PY{o}{.}\PY{n}{mapred}\PY{o}{.}\PY{n}{lib}\PY{o}{.}\PY{n}{KeyFieldBasedPartitioner} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{numReduceTasks} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rm: `/user/root/HW2/model-sort-output': No such file or directory
+packageJobJar: [] [/usr/jars/hadoop-streaming-2.6.0-cdh5.7.0.jar] /tmp/streamjob5406925483559872000.jar tmpDir=null
+18/05/01 00:30:21 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:30:21 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/05/01 00:30:22 INFO mapred.FileInputFormat: Total input paths to process : 1
+18/05/01 00:30:22 INFO mapreduce.JobSubmitter: number of splits:2
+18/05/01 00:30:22 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1525015259038\_0019
+18/05/01 00:30:23 INFO impl.YarnClientImpl: Submitted application application\_1525015259038\_0019
+18/05/01 00:30:23 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application\_1525015259038\_0019/
+18/05/01 00:30:23 INFO mapreduce.Job: Running job: job\_1525015259038\_0019
+18/05/01 00:30:31 INFO mapreduce.Job: Job job\_1525015259038\_0019 running in uber mode : false
+18/05/01 00:30:31 INFO mapreduce.Job:  map 0\% reduce 0\%
+18/05/01 00:30:38 INFO mapreduce.Job:  map 50\% reduce 0\%
+18/05/01 00:30:39 INFO mapreduce.Job:  map 100\% reduce 0\%
+18/05/01 00:30:46 INFO mapreduce.Job:  map 100\% reduce 50\%
+18/05/01 00:30:47 INFO mapreduce.Job:  map 100\% reduce 100\%
+18/05/01 00:30:48 INFO mapreduce.Job: Job job\_1525015259038\_0019 completed successfully
+18/05/01 00:30:49 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=391064
+		FILE: Number of bytes written=1250890
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=258514
+		HDFS: Number of bytes written=381940
+		HDFS: Number of read operations=12
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=2
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=11179
+		Total time spent by all reduces in occupied slots (ms)=12019
+		Total time spent by all map tasks (ms)=11179
+		Total time spent by all reduce tasks (ms)=12019
+		Total vcore-seconds taken by all map tasks=11179
+		Total vcore-seconds taken by all reduce tasks=12019
+		Total megabyte-seconds taken by all map tasks=11447296
+		Total megabyte-seconds taken by all reduce tasks=12307456
+	Map-Reduce Framework
+		Map input records=4556
+		Map output records=4556
+		Map output bytes=381940
+		Map output materialized bytes=391076
+		Input split bytes=242
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=4556
+		Reduce shuffle bytes=391076
+		Reduce input records=4556
+		Reduce output records=4556
+		Spilled Records=9112
+		Shuffled Maps =4
+		Failed Shuffles=0
+		Merged Map outputs=4
+		GC time elapsed (ms)=177
+		CPU time spent (ms)=5720
+		Physical memory (bytes) snapshot=950489088
+		Virtual memory (bytes) snapshot=5451993088
+		Total committed heap usage (bytes)=698351616
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=258272
+	File Output Format Counters 
+		Bytes Written=381940
+18/05/01 00:30:49 INFO streaming.StreamJob: Output directory: /user/root/HW2/model-sort-output
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{} part e \PYZhy{} print top words in each class}
+         \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{============== PART\PYZhy{}0000}\PY{l+s+si}{\PYZob{}idx\PYZcb{}}\PY{l+s+s2}{===============}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/model\PYZhy{}sort\PYZhy{}output/part\PYZhy{}0000\PY{o}{\PYZob{}}idx\PY{o}{\PYZcb{}} \PY{p}{|} head
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+============== PART-00000===============
+ClassPriors	47.0,33.0,0.5875,0.4125	ham	0.5875	
+ect	378,0,0.023473306082001735,5.546004104043037e-05	ham	0.023473306082001735	
+and	258,277,0.01604112473677691,0.015417891409239643	ham	0.01604112473677691	
+hou	203,0,0.0126347082868822,5.546004104043037e-05	ham	0.0126347082868822	
+in	160,157,0.009971509971509971,0.008762686484387999	ham	0.009971509971509971	
+for	148,153,0.00922829183698749,0.008540846320226277	ham	0.00922829183698749	
+on	122,95,0.007617985878855444,0.005324163939881316	ham	0.007617985878855444	
+enron	116,0,0.007246376811594203,5.546004104043037e-05	ham	0.007246376811594203	
+i	113,106,0.007060572277963582,0.00593422439132605	ham	0.007060572277963582	
+will	113,69,0.007060572277963582,0.003882202872830126	ham	0.007060572277963582	
+cat: Unable to write to output stream.
+============== PART-00001===============
+the	453,535,0.02811841942276725,0.029726581997670677	spam	0.029726581997670677	
+to	350,420,0.021739130434782608,0.023348677278021184	spam	0.023348677278021184	
+a	168,274,0.010466988727858293,0.015251511286118352	spam	0.015251511286118352	
+your	35,271,0.002229654403567447,0.01508513116299706	spam	0.01508513116299706	
+of	188,252,0.011705685618729096,0.014031390383228884	spam	0.014031390383228884	
+you	80,252,0.005016722408026756,0.014031390383228884	spam	0.014031390383228884	
+it	30,119,0.0019199801808497462,0.0066552049248516446	spam	0.0066552049248516446	
+com	74,108,0.004645113340765515,0.006045144473406911	spam	0.006045144473406911	
+that	71,100,0.004459308807134894,0.005601464145083467	spam	0.005601464145083467	
+or	41,88,0.002601263470828688,0.004935943652598303	spam	0.004935943652598303	
+cat: Unable to write to output stream.
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{HW2 ends here, please refer to the
+\texttt{README.md} for submission
+instructions.}{HW2 ends here, please refer to the README.md for submission instructions.}}\label{hw2-ends-here-please-refer-to-the-readme.md-for-submission-instructions.}
+
+    \subsubsection{SUPPLEMENT:}\label{supplement}
+
+Smoothed MNB with multiple reducers
+
+    MNB implementation using the reverse hash function trick to wrok with
+multiple reducers.
+
+    \subsubsection{Training}\label{training}
+
+The only things we need to modify are the mapper and reducer functions
+for training our model.\\
+Feel free to modify the number of reducers inside the driver code cell.
+
+The classification remains exactly the same and is included below for
+convenience to check results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Make local directory for this version}
+         \PY{o}{!}mkdir NaiveBayes/MultiReducer
+         \PY{c+c1}{\PYZsh{} Make HDFS directory for this version}
+         \PY{o}{!}hdfs dfs \PYZhy{}mkdir \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/multi\PYZhy{}reducer
+         \PY{o}{!}hdfs dfs \PYZhy{}ls \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mkdir: cannot create directory `NaiveBayes/MultiReducer': File exists
+mkdir: `/user/root/HW2/multi-reducer': File exists
+Found 1 items
+drwxr-xr-x   - root supergroup          0 2019-02-05 11:07 /user/root/HW2/multi-reducer
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{} SOLUTION \PYZhy{}\PYZhy{}\PYZhy{}\PYZgt{}}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} clear the output directory}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/NBmodel
+         
+         \PY{c+c1}{\PYZsh{} hadoop command}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{stream}\PY{o}{.}\PY{n}{num}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{output}\PY{o}{.}\PY{n}{key}\PY{o}{.}\PY{n}{fields}\PY{o}{=}\PY{l+m+mi}{2} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{job}\PY{o}{.}\PY{n}{output}\PY{o}{.}\PY{n}{key}\PY{o}{.}\PY{n}{comparator}\PY{o}{.}\PY{n}{class}\PY{o}{=}\PY{n}{org}\PY{o}{.}\PY{n}{apache}\PY{o}{.}\PY{n}{hadoop}\PY{o}{.}\PY{n}{mapred}\PY{o}{.}\PY{n}{lib}\PY{o}{.}\PY{n}{KeyFieldBasedComparator} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{partition}\PY{o}{.}\PY{n}{keycomparator}\PY{o}{.}\PY{n}{options}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}k2,2}\PY{l+s+s2}{\PYZdq{}} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{D} \PY{n}{mapreduce}\PY{o}{.}\PY{n}{partition}\PY{o}{.}\PY{n}{keypartitioner}\PY{o}{.}\PY{n}{options}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}k1,1}\PY{l+s+s2}{\PYZdq{}} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{MultiReducer}\PY{o}{/}\PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{MultiReducer}\PY{o}{/}\PY{n}{train\PYZus{}reducer\PYZus{}smooth}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{train\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{train\PYZus{}reducer\PYZus{}smooth}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron\PYZus{}train}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{NBmodel} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{partitioner} \PY{n}{org}\PY{o}{.}\PY{n}{apache}\PY{o}{.}\PY{n}{hadoop}\PY{o}{.}\PY{n}{mapred}\PY{o}{.}\PY{n}{lib}\PY{o}{.}\PY{n}{KeyFieldBasedPartitioner} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{numReduceTasks} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} \PYZlt{}\PYZhy{}\PYZhy{} feel free to modify the number of reducers}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Deleted /user/root/HW2/NBmodel
+packageJobJar: [] [/usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.15.1.jar] /tmp/streamjob8554212431994777257.jar tmpDir=null
+19/02/05 17:44:33 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/02/05 17:44:33 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/02/05 17:44:35 INFO mapred.FileInputFormat: Total input paths to process : 1
+19/02/05 17:44:35 INFO mapreduce.JobSubmitter: number of splits:2
+19/02/05 17:44:35 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1549298683666\_0012
+19/02/05 17:44:36 INFO impl.YarnClientImpl: Submitted application application\_1549298683666\_0012
+19/02/05 17:44:36 INFO mapreduce.Job: The url to track the job: http://docker.w261:8088/proxy/application\_1549298683666\_0012/
+19/02/05 17:44:36 INFO mapreduce.Job: Running job: job\_1549298683666\_0012
+19/02/05 17:44:45 INFO mapreduce.Job: Job job\_1549298683666\_0012 running in uber mode : false
+19/02/05 17:44:45 INFO mapreduce.Job:  map 0\% reduce 0\%
+19/02/05 17:44:53 INFO mapreduce.Job:  map 50\% reduce 0\%
+19/02/05 17:44:54 INFO mapreduce.Job:  map 100\% reduce 0\%
+19/02/05 17:45:01 INFO mapreduce.Job:  map 100\% reduce 50\%
+19/02/05 17:45:02 INFO mapreduce.Job:  map 100\% reduce 100\%
+19/02/05 17:45:03 INFO mapreduce.Job: Job job\_1549298683666\_0012 completed successfully
+19/02/05 17:45:03 INFO mapreduce.Job: Counters: 50
+	File System Counters
+		FILE: Number of bytes read=343662
+		FILE: Number of bytes written=1289342
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=167388
+		HDFS: Number of bytes written=254212
+		HDFS: Number of read operations=12
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=4
+	Job Counters 
+		Killed reduce tasks=1
+		Launched map tasks=2
+		Launched reduce tasks=2
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=11095
+		Total time spent by all reduces in occupied slots (ms)=11986
+		Total time spent by all map tasks (ms)=11095
+		Total time spent by all reduce tasks (ms)=11986
+		Total vcore-milliseconds taken by all map tasks=11095
+		Total vcore-milliseconds taken by all reduce tasks=11986
+		Total megabyte-milliseconds taken by all map tasks=11361280
+		Total megabyte-milliseconds taken by all reduce tasks=12273664
+	Map-Reduce Framework
+		Map input records=80
+		Map output records=25075
+		Map output bytes=293500
+		Map output materialized bytes=343674
+		Input split bytes=226
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=4559
+		Reduce shuffle bytes=343674
+		Reduce input records=25075
+		Reduce output records=4557
+		Spilled Records=50150
+		Shuffled Maps =4
+		Failed Shuffles=0
+		Merged Map outputs=4
+		GC time elapsed (ms)=153
+		CPU time spent (ms)=7150
+		Physical memory (bytes) snapshot=995672064
+		Virtual memory (bytes) snapshot=5515325440
+		Total committed heap usage (bytes)=981467136
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=167162
+	File Output Format Counters 
+		Bytes Written=254212
+19/02/05 17:45:03 INFO streaming.StreamJob: Output directory: /user/root/HW2/NBmodel
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{} save the model locally}
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/NBmodel/part\PYZhy{}0000* \PYZgt{} NaiveBayes/MultiReducer/NBmodel.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} Sanity check the output. Results should match single reducer implementation}
+         \PY{o}{!}sort \PYZhy{}k1,1 NaiveBayes/MultiReducer/NBmodel.txt \PY{p}{|} head 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{c+c1}{\PYZsh{} Results should match single reducer implementation}
+         \PY{o}{!}grep money NaiveBayes/MultiReducer/NBmodel.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+money	1,22,0.0001238696890870804,0.0012755809439298986
+
+    \end{Verbatim}
+
+    \subsubsection{Classification \&
+Evaluation}\label{classification-evaluation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{o}{!}hdfs dfs \PYZhy{}mkdir \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/mr\PYZhy{}results
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} clear output directory}
+         \PY{o}{!}hdfs dfs \PYZhy{}rm \PYZhy{}r \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/mr\PYZhy{}results
+         
+         \PY{c+c1}{\PYZsh{} hadoop job}
+         \PY{o}{!}hadoop jar \PY{o}{\PYZob{}}JAR\PYZus{}FILE\PY{o}{\PYZcb{}} \PY{err}{\PYZbs{}}
+           \PY{o}{\PYZhy{}}\PY{n}{files} \PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{classify\PYZus{}mapper}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{evaluation\PYZus{}reducer}\PY{o}{.}\PY{n}{py}\PY{p}{,}\PY{n}{NaiveBayes}\PY{o}{/}\PY{n}{MultiReducer}\PY{o}{/}\PY{n}{NBmodel}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{mapper} \PY{n}{classify\PYZus{}mapper}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{reducer} \PY{n}{evaluation\PYZus{}reducer}\PY{o}{.}\PY{n}{py} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n+nb}{input} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{enron\PYZus{}test}\PY{o}{.}\PY{n}{txt} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{output} \PY{p}{\PYZob{}}\PY{n}{HDFS\PYZus{}DIR}\PY{p}{\PYZcb{}}\PY{o}{/}\PY{n}{mr}\PY{o}{\PYZhy{}}\PY{n}{results} \PYZbs{}
+           \PY{o}{\PYZhy{}}\PY{n}{cmdenv} \PY{n}{PATH}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{PATH}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Deleted /user/root/HW2/mr-results
+packageJobJar: [] [/usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-cdh5.15.1.jar] /tmp/streamjob8132689135577092871.jar tmpDir=null
+19/02/05 12:38:18 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/02/05 12:38:19 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/02/05 12:38:19 INFO mapred.FileInputFormat: Total input paths to process : 1
+19/02/05 12:38:20 INFO mapreduce.JobSubmitter: number of splits:2
+19/02/05 12:38:20 INFO mapreduce.JobSubmitter: Submitting tokens for job: job\_1549298683666\_0011
+19/02/05 12:38:20 INFO impl.YarnClientImpl: Submitted application application\_1549298683666\_0011
+19/02/05 12:38:20 INFO mapreduce.Job: The url to track the job: http://docker.w261:8088/proxy/application\_1549298683666\_0011/
+19/02/05 12:38:20 INFO mapreduce.Job: Running job: job\_1549298683666\_0011
+19/02/05 12:38:30 INFO mapreduce.Job: Job job\_1549298683666\_0011 running in uber mode : false
+19/02/05 12:38:30 INFO mapreduce.Job:  map 0\% reduce 0\%
+19/02/05 12:38:37 INFO mapreduce.Job:  map 100\% reduce 0\%
+19/02/05 12:38:44 INFO mapreduce.Job:  map 100\% reduce 100\%
+19/02/05 12:38:44 INFO mapreduce.Job: Job job\_1549298683666\_0011 completed successfully
+19/02/05 12:38:44 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=1345
+		FILE: Number of bytes written=452383
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=49909
+		HDFS: Number of bytes written=1556
+		HDFS: Number of read operations=9
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Data-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=10497
+		Total time spent by all reduces in occupied slots (ms)=4736
+		Total time spent by all map tasks (ms)=10497
+		Total time spent by all reduce tasks (ms)=4736
+		Total vcore-milliseconds taken by all map tasks=10497
+		Total vcore-milliseconds taken by all reduce tasks=4736
+		Total megabyte-milliseconds taken by all map tasks=10748928
+		Total megabyte-milliseconds taken by all reduce tasks=4849664
+	Map-Reduce Framework
+		Map input records=20
+		Map output records=20
+		Map output bytes=1299
+		Map output materialized bytes=1351
+		Input split bytes=224
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=20
+		Reduce shuffle bytes=1351
+		Reduce input records=20
+		Reduce output records=29
+		Spilled Records=40
+		Shuffled Maps =2
+		Failed Shuffles=0
+		Merged Map outputs=2
+		GC time elapsed (ms)=84
+		CPU time spent (ms)=2560
+		Physical memory (bytes) snapshot=729817088
+		Virtual memory (bytes) snapshot=4137562112
+		Total committed heap usage (bytes)=686817280
+	Shuffle Errors
+		BAD\_ID=0
+		CONNECTION=0
+		IO\_ERROR=0
+		WRONG\_LENGTH=0
+		WRONG\_MAP=0
+		WRONG\_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=49685
+	File Output Format Counters 
+		Bytes Written=1556
+19/02/05 12:38:44 INFO streaming.StreamJob: Output directory: /user/root/HW2/mr-results
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{c+c1}{\PYZsh{} retrieve results locally}
+         \PY{o}{!}hdfs dfs \PYZhy{}cat \PY{o}{\PYZob{}}HDFS\PYZus{}DIR\PY{o}{\PYZcb{}}/mr\PYZhy{}results/part\PYZhy{}000* \PYZgt{} NaiveBayes/MultiReducer/results.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{} Results should match Smoothed model with single reducer}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{=========== MULTI REDUCER MODEL ============}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{!}tail \PYZhy{}n \PY{l+m}{9} NaiveBayes/MultiReducer/results.txt
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=========== MULTI REDUCER MODEL ============
+Total \# Documents:	20.0
+True Positives:	11.0
+True Negatives:	6.0
+False Positives:	3.0
+False Negatives:	0.0
+Accuracy	0.85
+Precision	0.7857142857142857
+Recall	1.0
+F-Score	0.88
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
