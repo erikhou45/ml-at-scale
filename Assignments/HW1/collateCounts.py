@@ -25,29 +25,38 @@ from collections import defaultdict
 
 ########### PROVIDED IMPLEMENTATION ##############  
 ##### uncomment to run
-counts = defaultdict(int)
-# stream over lines from Standard Input
-for line in sys.stdin:
-    # extract words & counts
-    word, count  = line.split()
-    # tally counts
-    counts[word] += int(count)
-# print counts
-for wrd, count in counts.items():
-    print("{}\t{}".format(wrd,count))
+# counts = defaultdict(int)
+# # stream over lines from Standard Input
+# for line in sys.stdin:
+#     # extract words & counts
+#     word, count  = line.split()
+#     # tally counts
+#     counts[word] += int(count)
+# # print counts
+# for wrd, count in counts.items():
+#     print("{}\t{}".format(wrd,count))
 ########## (END) PROVIDED IMPLEMENTATION #########
 
 ################# YOUR CODE HERE #################
+total_count = 0
+last_word = ''
 
-
-
-
-
-
-
-
-
-
+for line in sys.stdin:
+#     print(line)
+    
+    word, count = line.split()
+    
+    if last_word == '':
+        last_word = word
+        total_count = int(count)
+        continue
+    
+    if last_word != word:
+        print("{}\t{}".format(last_word,total_count))
+        total_count = int(count)
+        last_word = word
+    else:
+        total_count += int(count)
 
 
 ################ (END) YOUR CODE #################

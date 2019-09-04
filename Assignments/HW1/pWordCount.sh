@@ -94,12 +94,15 @@ if [ $# -eq 4 ]
     reducer=$4
     ################ YOUR CODE HERE #############
     # Q6c solution here:
-    cat $countfiles > $data.temp
-    ./$reducer < $data.temp > $data.output
-    \rm $data.temp
+#     cat $countfiles > $data.temp
+#     ./$reducer < $data.temp > $data.output
+#     \rm $data.temp
 
     # Q7b solution here (comment out the line above):
-
+    
+    cat $countfiles | sort > $data.temp
+    ./$reducer < $data.temp > $data.output
+    \rm $data.temp
     ################# (END YOUR CODE)###########
 fi
 
