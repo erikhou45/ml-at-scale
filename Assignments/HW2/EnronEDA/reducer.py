@@ -20,8 +20,33 @@ for line in sys.stdin:
     
 ############ YOUR CODE HERE #########
 
+    if current_word == word:
+        if is_spam == '1':
+            spam_count += int(count)
+        else:
+            ham_count += int(count)
+    
+    else:
+        if current_word:
+            print(f'{current_word}\t{1}\t{spam_count}')
+            print(f'{current_word}\t{0}\t{ham_count}')
+            current_word = word
+            if is_spam == '1':
+                spam_count = int(count)
+                ham_count = 0
+            else:
+                ham_count = int(count)
+                spam_count = 0
+        else:
+            current_word = word
+            if is_spam == '1':
+                spam_count = int(count)
+            else:
+                ham_count = int(count)
+            
 
-
+print(f'{current_word}\t{1}\t{spam_count}')
+print(f'{current_word}\t{0}\t{ham_count}')
 
 
 

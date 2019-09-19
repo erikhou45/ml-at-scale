@@ -31,6 +31,7 @@ TP = 0.0 # true positives
 TN = 0.0 # true negatives
 
 # read from STDIN
+
 for line in sys.stdin:
     # parse input
     docID, class_, pHam, pSpam, pred = line.split()
@@ -39,26 +40,33 @@ for line in sys.stdin:
     
     # then compute evaluation stats
 #################### YOUR CODE HERE ###################
+    if class_=='1':
+        if pred=='1':
+            TP += 1.0
+        else:
+            FN += 1.0
+    else:
+        if pred=='1':
+            FP += 1.0
+        else:
+            TN += 1.0
+
+precision = TP/(TP+FP)
+recall = TP/(TP+FN)
 
 
 
 
+print('# Documents:\t{}'.format(TP+TN+FP+FN))
+print(f'True Positives:\t{TP}')
+print(f'True Negatives:\t{TN}')
+print(f'False Positives:\t{FP}')
+print(f'False Negatives:\t{FN}')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print('Accuracy:\t{}'.format((TP+TN)/(TP+TN+FP+FN)))
+print('Precision:\t{}'.format(precision))
+print('Recall:\t{}'.format(recall))
+print('F-score:\t{}'.format(2*precision*recall/(precision+recall)))
 
 
 
