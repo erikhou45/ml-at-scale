@@ -29,11 +29,12 @@ document_total = np.array([0,0])
 
 # read from standard input
 for line in sys.stdin:
-
+    
+    #split the line to get the componenets
     pkey, word, values = line.split('\t')
+    #get the partial counts of the two classes
     partialCounts = np.array(values.replace('\n','').split(',')).astype("float")
-#     class0_partialCount, class1_partialCount = values.split(',')
-#     print("current_word={}, current_word_total={}, word={}, partialCounts={}".format(current_word, current_word_total, word, partialCounts))
+
     if word == current_word:
         current_word_total += partialCounts
     else:
@@ -47,9 +48,10 @@ for line in sys.stdin:
             #print the current word and frequency
             print("{}\t{},{},{},{}".format(current_word,*current_word_total,*(current_word_total/word_total)))
         
-        #reset current_word and current_word_total
+        #reset current_word and current_word_total because a new word is encountered
         current_word = word
         current_word_total = partialCounts
-        
+
+#print the last record
 print("{}\t{},{},{},{}".format(current_word,*current_word_total,*(current_word_total/word_total)))
 ##################### (END) CODE HERE ####################

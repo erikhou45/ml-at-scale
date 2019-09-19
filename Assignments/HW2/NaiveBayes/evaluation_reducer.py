@@ -54,9 +54,7 @@ for line in sys.stdin:
 precision = TP/(TP+FP)
 recall = TP/(TP+FN)
 
-
-
-
+#print measures
 print('# Documents:\t{}'.format(TP+TN+FP+FN))
 print(f'True Positives:\t{TP}')
 print(f'True Negatives:\t{TN}')
