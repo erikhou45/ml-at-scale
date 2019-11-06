@@ -1,0 +1,1 @@
+## Everything was moved to the [w261-environment repo](https://github.com/UCB-w261/w261-environment/tree/master/gcp) 
