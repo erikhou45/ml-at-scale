@@ -8,6 +8,6 @@ This is the repo for the assignments and notes for the class, Machine Learning a
 
 * [Assignment 3](https://github.com/erikhou45/ml-at-scale/blob/master/Assignments/HW3/hw3_workbook.ipynb): Implement stateless algorithms in Spark to build stripes, inverted index and compute similarity metrics.
  
-* [Assignment 4](https://github.com/erikhou45/ml-at-scale/blob/master/Assignments/HW4/hw4_workbook.ipynb): Implement gradient descent to train a linear regression model using PySpark RDD API.
+* [Assignment 4](https://github.com/erikhou45/ml-at-scale/blob/master/Assignments/HW4/hw4_Workbook.ipynb): Implement gradient descent to train a linear regression model using PySpark RDD API.
 
 * [Assignment 5](https://github.com/erikhou45/ml-at-scale/blob/master/Assignments/HW5/hw5_workbook.ipynb): Implement Page Rank algorithm using Spark in a cluster.
