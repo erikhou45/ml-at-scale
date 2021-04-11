@@ -6,7 +6,7 @@ This is the repo for the assignments and notes for the class, Machine Learning a
 
 * [Assignment 2](https://github.com/erikhou45/ml-at-scale/blob/master/Assignments/HW2/hw2_workbook.ipynb): Use Hadoop MapReduce to implement Naive Bayes algorithm.
 
-* [Assignment 3](https://github.com/erikhou45/ml-at-scale/blob/master/Assignments/HW3/hw3_workbook.ipynb): Implement stateless algorithms in Spark to build stripes, inverted index and compute similarity metrics.
+* [Assignment 3](https://github.com/erikhou45/ml-at-scale/blob/master/Assignments/HW3/hw3_Workbook.ipynb): Implement stateless algorithms in Spark to build stripes, inverted index and compute similarity metrics.
  
 * [Assignment 4](https://github.com/erikhou45/ml-at-scale/blob/master/Assignments/HW4/hw4_Workbook.ipynb): Implement gradient descent to train a linear regression model using PySpark RDD API.
 
